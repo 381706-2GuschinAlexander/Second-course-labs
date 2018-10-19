@@ -6,7 +6,7 @@ before_script:
   - mkdir ../build
   - cd ../build
 script:
-  - cmake ../mp2-lab1-set
+  - cmake ../381706-2_Guschin_Lab
   - make -j
   - ./vector/vector
 notifications:
