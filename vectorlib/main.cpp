@@ -1,7 +1,7 @@
 #include <iostream>
 
 
-void it_is_not_main()
+void Sub()
 {
   std::cout << "\nHi\n";
 }
