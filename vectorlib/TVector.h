@@ -56,6 +56,7 @@ TVector<T>& TVector<T>::operator=(TVector<T>& A)
 {
 	delete[] p;
 	l = A.l;
+	p = new T[l];
 	for (int i = 0; i < l; i++)
 		p[i] = A.p[i];
 
@@ -74,52 +75,32 @@ T& TVector<T>::operator[](int i)
 template<class T>
 TVector<T> TVector<T>::operator+(TVector<T>& A)
 {
-	int max = l > A.l ? l : A.l;
-	int min = l < A.l ? l : A.l;
-	TVector R(max);
-
-	for (int i = 0; i < min; i++)
+	if (l != A.l)
+		throw (1);
+	TVector R(l);
+	for (int i = 0; i < l; i++)
 		R[i] = p[i] + A.p[i];
-
-	if (l > A.l)
-		for (int i = min; i < max; i++)
-			R[i] = p[i];
-	else 
-		for (int i = min; i < max; i++)
-			R[i] = A.p[i];
 	return R;
 }
 
 template<class T>
 TVector<T> TVector<T>::operator-(TVector<T>& A)
 {
-	int max = l > A.l ? l : A.l;
-	int min = l < A.l ? l : A.l;
-	TVector R(max);
-
-	for (int i = 0; i < min; i++)
+	if (l != A.l)
+		throw (1);
+	TVector R(l);
+	for (int i = 0; i < l; i++)
 		R[i] = p[i] - A.p[i];
-
-	if (l > A.l)
-		for (int i = min; i < max; i++)
-			R[i] = p[i];
-	else
-		for (int i = min; i < max; i++)
-			R[i] = A.p[i];
 	return R;
 }
 
 template<class T>
 TVector<T> TVector<T>::operator*(TVector<T>& A)
 {
-	int max = l > A.l ? l : A.l;
-	int min = l < A.l ? l : A.l;
-	TVector R(max);
-
-	for (int i = 0; i < min; i++)
+	if (l != A.l)
+		throw (1);
+	TVector R(l);
+	for (int i = 0; i < l; i++)
 		R[i] = p[i] * A.p[i];
-
-	for (int i = min; i < max; i++)
-		R[i] = 0;
 	return R;
 }
