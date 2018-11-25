@@ -39,12 +39,23 @@ TEST(TVector, plus)
 	EXPECT_EQ((A + B)[1], 12);
 }
 
-TEST(TVector, plus_expect_throw) 
+TEST(TVector, plus_const) 
+{
+	TVector<int> A(3);
+	for (int i = 0; i < A.GetSize(); i++)
+		A[i] = i;
+	int k = 5;
+	EXPECT_EQ((A + k)[1], 6);
+}
+
+
+TEST(TVector, plus_expect_throw)
 {
 	TVector<int> A(1), B(3);
 
-	ASSERT_ANY_THROW( A + B);
+	ASSERT_ANY_THROW(A + B);
 }
+
 
 TEST(TVector, minus)
 {
@@ -57,6 +68,17 @@ TEST(TVector, minus)
 		B[i] = i + 10;
 
 	EXPECT_EQ((B - A)[1], 10);
+}
+
+TEST(TVector, minus_const)
+{
+	TVector<int> A(3);
+	for (int i = 0; i < A.GetSize(); i++)
+		A[i] = i;
+
+	int k = 1;
+
+	EXPECT_EQ((A - k)[1], 0);
 }
 
 TEST(TVector, minus_expect_throw) 
@@ -79,9 +101,58 @@ TEST(TVector, multiplication)
 	EXPECT_EQ((B * A)[2], 24);
 }
 
+TEST(TVector, multiplication_const)
+{
+	TVector<int> A(3);
+	for (int i = 0; i < A.GetSize(); i++)
+		A[i] = i;
+
+	int k = 2;
+
+	EXPECT_EQ((A * k)[2], 4);
+}
+
+
 TEST(TVector, multiplication_expect_throw)
 {
 	TVector<int> A(1), B(3);
 
 	ASSERT_ANY_THROW(A * B);
+}
+
+TEST(TVector, vector_equality_if_eq)
+{
+	TVector<int> A(2), B(2);
+	
+	A[0] = 1;
+	A[1] = 2;
+	B[0] = 1;
+	B[1] = 2;
+
+	EXPECT_EQ(A == B, true);
+}
+
+TEST(TVector, vector_equality_if_uneq)
+{
+	TVector<int> A(2), B(2);
+
+	A[0] = 1;
+	A[1] = 2;
+	B[0] = 1;
+	B[1] = 3;
+
+	EXPECT_EQ(A == B, false);
+}
+
+TEST(TVector, vector_equality_if_diff_size)
+{
+	TVector<int> A(1), B(2);
+
+	EXPECT_EQ(A == B, false);
+}
+
+TEST(TVector, get_size)
+{
+	TVector<int> A(100);
+	EXPECT_EQ(A.GetSize(), 100);
 }
