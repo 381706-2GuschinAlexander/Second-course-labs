@@ -6,6 +6,9 @@ project(${PROJECT_NAME}) # Название проекта
 set(vector vector) #Переменная с именем библиотеки
 set(vectorlib vectorlib) #Переменная с именем библиотеки
 set(vectortest vectortest)
+set(stack stack)
+set(stacklib stacklib)
+set(stacktest stacktest)
 
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
@@ -19,6 +22,9 @@ add_subdirectory(vector)
 add_subdirectory(vectorlib)
 add_subdirectory(gtest)
 add_subdirectory(vectortest)
+add_subdirectory(stack)
+add_subdirectory(stacklib)
+add_subdirectory(stacktest)
 
 #file(GLOB hdrs "*.h*") #Добавляем в переменную hdrs все файлы с расширением .h
 #file(GLOB srcs "*.cpp") #Добавляем в переменную srcs все файлы с расширением .h
