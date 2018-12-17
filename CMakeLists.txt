@@ -9,7 +9,7 @@ set(vectortest vectortest)
 set(stack stack)
 set(stacklib stacklib)
 set(stacktest stacktest)
-set(exception exception)
+
 
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
@@ -26,7 +26,7 @@ add_subdirectory(vectortest)
 add_subdirectory(stack)
 add_subdirectory(stacklib)
 add_subdirectory(stacktest)
-add_subdirectory(exception)
+
 
 
 #file(GLOB hdrs "*.h*") #Добавляем в переменную hdrs все файлы с расширением .h
