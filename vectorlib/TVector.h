@@ -8,10 +8,12 @@ protected:
 	int l; //lenght
 	T* p; //pointer
 public:
+	TVector();
 	TVector(int n);
 	TVector(TVector<T>& A);
 	~TVector();
 	int GetSize(); //return lenght
+	virtual bool operator != (TVector<T>& A);
 	virtual bool operator == (TVector<T>& A);
 	virtual TVector<T>& operator = (TVector<T> &A);
 	virtual T& operator [](int i);
@@ -25,6 +27,13 @@ public:
 
 	/*freind istream& operator >> (istream& in, TVector& A);*/
 };
+
+template <class T>
+TVector<T>::TVector()
+{
+		l = 0;
+		p = nullptr;
+}
 
 template <class T>
 TVector<T>::TVector(int n)
@@ -59,6 +68,8 @@ int TVector<T>::GetSize()
 	return l;
 }
 
+
+
 template<class T>
 TVector<T>& TVector<T>::operator=(TVector<T>& A)
 {
@@ -80,6 +91,17 @@ bool TVector<T>::operator == (TVector<T>& A)
 		if (p[i] != A.p[i])
 			return false;
 	return true;
+}
+
+template<class T>
+bool TVector<T>::operator!=(TVector<T>& A)
+{
+	if (l != A.l)
+		return true;
+	for (int i = 0; i < l; i++)
+		if (p[i] != A.p[i])
+			return true;
+	return false;
 }
 
 template<class T>
