@@ -7,7 +7,7 @@ class Matrix : public TVector<TVector<T> >
 public:
 	Matrix(int n);
 	Matrix(Matrix<T>& A);
-	Matrix(TVector<TVector<T>>& A);
+	Matrix(TVector<TVector<T> >& A);
 	bool operator==(Matrix<T>& A);
 	Matrix& operator=(Matrix<T>& A);
 	Matrix operator+(Matrix<T>& A);
@@ -16,7 +16,7 @@ public:
 };
 
 template <class T>
-Matrix<T>::Matrix(int n):TVector<TVector<T>>(n)
+Matrix<T>::Matrix(int n):TVector<TVector<T> >(n)
 {
 	for(int i = 0; i < n; i++)
 		p[i] = TVector<T>(n - i);
@@ -24,7 +24,7 @@ Matrix<T>::Matrix(int n):TVector<TVector<T>>(n)
 
 
 template <class T>
-Matrix<T>::Matrix(Matrix<T>& A):TVector<TVector<T>>(A.GetSize())
+Matrix<T>::Matrix(Matrix<T>& A):TVector<TVector<T> >(A.GetSize())
 {
 	for (int i = 0; i < l; i++)
 		p[i] = A.p[i];
@@ -32,7 +32,7 @@ Matrix<T>::Matrix(Matrix<T>& A):TVector<TVector<T>>(A.GetSize())
 
 
 template <class T>
-Matrix<T>::Matrix(TVector<TVector<T> >& A) :TVector<TVector<T>>(A.GetSize())
+Matrix<T>::Matrix(TVector<TVector<T> >& A) :TVector<TVector<T> >(A.GetSize())
 {
 	for (int i = 0; i < A.GetSize(); i++)
 		if (A[i].GetSize() != l - i)
