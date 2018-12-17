@@ -32,7 +32,7 @@ template <class T>
 TVector<T>::TVector()
 {
 		l = 0;
-		p = nullptr;
+		p = NULL;
 }
 
 template <class T>
