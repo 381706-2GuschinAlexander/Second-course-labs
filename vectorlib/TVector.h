@@ -7,6 +7,7 @@ class TVector
 protected:
 	int l; //lenght
 	T* p; //pointer
+
 public:
 	TVector();
 	TVector(int n);
@@ -31,19 +32,26 @@ public:
 template <class T>
 TVector<T>::TVector()
 {
-		l = 0;
-		p = NULL;
+  l = 0;
+  p = NULL;
 }
 
 template <class T>
 TVector<T>::TVector(int n)
 {
-	if (n <= 0)
+	if (n < 0)
 		throw(1);
-	else
+	else if (n == 0)
+  {
+    l = 0;
+    p = NULL;
+  } 
+  else
 	{
 		l = n;
 		p = new T[l];
+    for (int i = 0; i < l; i++)
+      p[i] = /*(T)*/0;
 	}
 }
 

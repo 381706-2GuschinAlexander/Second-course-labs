@@ -138,20 +138,20 @@ TEST(Matrix, multiply_with_invalid_matrix)
 	ASSERT_ANY_THROW(A * B);
 }
 
-/*TEST(Matrix, multiply_with_matrix)
+TEST(Matrix, multiply_with_matrix)
 {
 	Matrix<int> A(3);
 	Matrix<int> B(3);
 	Matrix<int> C(3);
 	Matrix<int> D(3);
 	for(int i = 0; i < 3; i++)
-	  for (int j = 0; j < 3; j++)
+	  for (int j = 0; j < 3 - i; j++)
 		{
 			A[i][j] = B[i][j] = 1;
 			C[i][j] = 3 - i - j;
-			D[0][0] = 0;
+			D[i][j] = 0;
 		}
   D = A * B;
   bool d = (D == C ? 1 : 0);
   EXPECT_EQ(d, 1);
-}*/
+}
