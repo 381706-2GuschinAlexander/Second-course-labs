@@ -51,7 +51,7 @@ TVector<T>::TVector(int n)
 		l = n;
 		p = new T[l];
     for (int i = 0; i < l; i++)
-      p[i] = /*(T)*/0;
+      p[i] = (T)0;
 	}
 }
 
