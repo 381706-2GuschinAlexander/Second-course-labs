@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-
+#include "exception.h"
 template <class T>
 class TVector
 {
