@@ -1,5 +1,5 @@
 #pragma once
-
+#include "exception.h"
 template <class T>
 class Stack
 {
@@ -22,7 +22,7 @@ template <class T>
 Stack<T>::Stack(int ms)
 {
   if (ms < 0)
-    throw __NS;
+    throw __NEG_SIZE;
   else if (ms > 0)
     p = new T[ms];
   else
@@ -63,10 +63,10 @@ int Stack<T>::GetCount()
 }
 
 template <class T>
-int Stack<T>::Put(const T s)
+void Stack<T>::Put(const T s)
 {
   if (IsFull())
-    throw(___);
+    throw(__STACK_IS_FULL);
   top++;
   p[top] = s;
 }
@@ -75,7 +75,7 @@ template <class T>
 T Stack<T>::Get()
 {
   if (IsEmpty())
-    throw(_ | _ | _);
+    throw(__STACK_IS_EMPTY);
   top--;
   return p[top + 1];
 }
