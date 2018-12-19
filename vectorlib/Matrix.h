@@ -1,6 +1,6 @@
 #pragma once
 #include "TVector.h"
-
+#include "exception.h"
 template <class T>
 class Matrix : public TVector<TVector<T> >
 {

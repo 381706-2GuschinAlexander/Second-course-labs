@@ -9,7 +9,7 @@ set(vectortest vectortest)
 set(stack stack)
 set(stacklib stacklib)
 set(stacktest stacktest)
-
+set(exception exception)
 
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
@@ -17,7 +17,10 @@ if(NOT CMAKE_BUILD_TYPE) # проверка имеющихся у компиля
   set(CMAKE_BUILD_TYPE Release) #Если нет то устанавливаем Release
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/vectorlib ${CMAKE_CURRENT_SOURCE_DIR}/gtest)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/vectorlib
+ ${CMAKE_CURRENT_SOURCE_DIR}/gtest
+ ${CMAKE_CURRENT_SOURCE_DIR}/exception
+ ${CMAKE_CURRENT_SOURCE_DIR}/stacklib)
 
 add_subdirectory(vector)
 add_subdirectory(vectorlib)
@@ -26,7 +29,7 @@ add_subdirectory(vectortest)
 add_subdirectory(stack)
 add_subdirectory(stacklib)
 add_subdirectory(stacktest)
-
+add_subdirectory(exception)
 
 
 #file(GLOB hdrs "*.h*") #Добавляем в переменную hdrs все файлы с расширением .h
