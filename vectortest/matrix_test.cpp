@@ -35,7 +35,7 @@ TEST(Matrix, can_create_matrix_with_matrix)
 
 TEST(Matrix, can_create_matrix_with_double_vectors)
 {
-	TVector <TVector<int>> A(1);
+	TVector <TVector<int> > A(1);
 	TVector<int> C(1);
 	A[0] = C;
 	A[0][0] = 1;
@@ -45,7 +45,7 @@ TEST(Matrix, can_create_matrix_with_double_vectors)
 
 TEST(Matrix, can_create_matrix_with_invalid_double_vectors)
 {
-	TVector <TVector<int>> A(2);
+	TVector <TVector<int> > A(2);
 	TVector<int> C(2);
 	A[0] = C;
 	A[1] = C;
@@ -149,7 +149,6 @@ TEST(Matrix, multiply_with_matrix)
 		{
 			A[i][j] = B[i][j] = 1;
 			C[i][j] = 3 - i - j;
-			D[i][j] = 0;
 		}
   D = A * B;
   bool d = (D == C ? 1 : 0);
