@@ -37,7 +37,7 @@ Matrix<T>::Matrix(TVector<TVector<T> >& A) :TVector<TVector<T> >(A.GetSize())
 	for (int i = 0; i < A.GetSize(); i++)
 		if (A[i].GetSize() != this->l - i)
 			throw (1);
-	for (int i = 0; i < l; i++)
+	for (int i = 0; i < this->l; i++)
     this->p[i] = A[i];
 }
 
