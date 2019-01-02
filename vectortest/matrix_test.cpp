@@ -6,7 +6,7 @@ TEST(Matrix, can_create_matrix_with_positive_n)
 	ASSERT_NO_THROW(Matrix<int> A(3));
 }
 
-TEST(Matrix, can_create_matrix_with_negative_n)
+TEST(Matrix, throws_when_create_matrix_with_negative_n)
 {
 	ASSERT_ANY_THROW(Matrix<int> A(-3));
 }
@@ -19,7 +19,7 @@ TEST(Matrix, can_get_value_in_range)
 	EXPECT_EQ(A[0][2] - A[2][0], 5);
 }
 
-TEST(Matrix, can_get_value_out_of_range)
+TEST(Matrix, throws_when_get_value_out_of_range)
 {
 	Matrix<int> A(3);
 	ASSERT_ANY_THROW(A[0][3]);
@@ -27,7 +27,7 @@ TEST(Matrix, can_get_value_out_of_range)
 
 TEST(Matrix, can_create_matrix_with_matrix)
 {
-	Matrix<int> B(3);
+	Matrix<int> B(1);
 	B[0][0] = 12;
 	Matrix<int> A(B);
 	EXPECT_EQ(B[0][0],A[0][0]);
@@ -43,7 +43,7 @@ TEST(Matrix, can_create_matrix_with_double_vectors)
 	EXPECT_EQ(B[0][0] , 1);
 }
 
-TEST(Matrix, can_create_matrix_with_invalid_double_vectors)
+TEST(Matrix, throws_when_create_matrix_with_invalid_double_vectors)
 {
 	TVector <TVector<int> > A(2);
 	TVector<int> C(2);
@@ -63,20 +63,28 @@ TEST(Matrix, matrix_eq_with_diff_lenght)
 
 TEST(Matrix, matrix_eq_with_diff_matrix)
 {
-	Matrix<int> A(1);
-	A[0][0] = 1;
-	Matrix<int> B(1);
-	B[0][0] = 2;
+  Matrix<int> A(2);
+  Matrix<int> B(2);
+  A[0][0] = 0;
+  A[0][1] = 1;
+  A[1][0] = 1;
+  B[0][0] = 0;
+  B[0][1] = 2;
+  B[1][0] = 2;
 
 	EXPECT_EQ(A == B, false);
 }
 
 TEST(Matrix, matrix_eq_with_same_matrix)
 {
-	Matrix<int> A(1);
-	A[0][0] = 2;
-	Matrix<int> B(1);
-	B[0][0] = 2;
+  Matrix<int> A(2);
+  Matrix<int> B(2);
+  A[0][0] = 0;
+  A[0][1] = 1;
+  A[1][0] = 1;
+  B[0][0] = 0;
+  B[0][1] = 1;
+  B[1][0] = 1;
 	EXPECT_EQ(A == B, true);
 }
 
@@ -92,7 +100,7 @@ TEST(Matrix, can_eq_matrix)
 	EXPECT_EQ(B[0][0], 1);
 }
 
-TEST(Matrix, plus_with_invalid_matrix)
+TEST(Matrix, throws_when_plus_with_invalid_matrix)
 {
 	Matrix<int> A(3);
 	Matrix<int> B(2);
@@ -102,16 +110,18 @@ TEST(Matrix, plus_with_invalid_matrix)
 
 TEST(Matrix, plus_with_matrix)
 {
-	Matrix<int> A(1);
-	Matrix<int> B(1);
-  Matrix<int> C(1);
-	A[0][0] = 4;
-	B[0][0] = 3;
-	
-	EXPECT_EQ((A + B)[0][0], 7);
+	Matrix<int> A(2);
+	Matrix<int> B(2);
+	A[0][0] = 0;
+  A[0][1] = 1;
+  A[1][0] = 1;
+  B[0][0] = 0;
+  B[0][1] = 2;
+  B[1][0] = 2;
+	EXPECT_EQ((A + A) == B, 1);
 }
 
-TEST(Matrix, minus_with_invalid_matrix)
+TEST(Matrix, throws_when_minus_with_invalid_matrix)
 {
 	Matrix<int> A(3);
 	Matrix<int> B(2);
@@ -126,11 +136,10 @@ TEST(Matrix, minus_with_matrix)
 
 	A[0][0] = 4;
 	B[0][0] = 3;
-	A = A - B;
-	EXPECT_EQ(A[0][0], 1);
+	EXPECT_EQ((A - B)[0][0], 1);
 }
 
-TEST(Matrix, multiply_with_invalid_matrix)
+TEST(Matrix, throws_when_multiply_with_invalid_matrix)
 {
 	Matrix<int> A(2);
 	Matrix<int> B(1);
@@ -143,14 +152,12 @@ TEST(Matrix, multiply_with_matrix)
 	Matrix<int> A(3);
 	Matrix<int> B(3);
 	Matrix<int> C(3);
-	Matrix<int> D(3);
 	for(int i = 0; i < 3; i++)
 	  for (int j = 0; j < 3 - i; j++)
 		{
 			A[i][j] = B[i][j] = 1;
 			C[i][j] = 3 - i - j;
 		}
-  D = A * B;
-  bool d = (D == C ? 1 : 0);
+  bool d = (A * B == C ? 1 : 0);
   EXPECT_EQ(d, 1);
 }

@@ -7,12 +7,12 @@ TEST(TVector, can_create_vector_with_positive_lenght)
 	ASSERT_NO_THROW(TVector<int> A(3));
 }
 
-TEST(TVector, cannot_create_vector_with_unpositive_lenght)
+TEST(TVector, throws_when_create_vector_with_unpositive_lenght)
 {
 	ASSERT_ANY_THROW(TVector<int> A(-3));
 }
 
-TEST(TVector, cannot_get_value_out_of_range)
+TEST(TVector, throws_when_get_value_out_of_range)
 {
 	TVector<int> A(1);
 	A[0] = 1;
@@ -49,7 +49,7 @@ TEST(TVector, plus_const)
 }
 
 
-TEST(TVector, plus_expect_throw)
+TEST(TVector, throws_when_plus_expect_throw)
 {
 	TVector<int> A(1), B(3);
 
@@ -81,7 +81,7 @@ TEST(TVector, minus_const)
 	EXPECT_EQ((A - k)[1], 0);
 }
 
-TEST(TVector, minus_expect_throw) 
+TEST(TVector, throws_when_minus_expect_throw)
 {
 	TVector<int> A(1), B(3);
 
@@ -113,7 +113,7 @@ TEST(TVector, multiplication_const)
 }
 
 
-TEST(TVector, multiplication_expect_throw)
+TEST(TVector, throws_when_multiplication_expect_throw)
 {
 	TVector<int> A(1), B(3);
 
