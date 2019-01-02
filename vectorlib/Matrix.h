@@ -2,21 +2,21 @@
 #include "TVector.h"
 
 template <class T>
-class Matrix : public TVector<TVector<T> >
+class TMatrix : public TVector<TVector<T> >
 {
 public:
-	Matrix(int n);
-	Matrix(Matrix<T>& A);
-	Matrix(TVector<TVector<T> >& A);
-	bool operator==(Matrix<T>& A);
-	Matrix& operator=(Matrix<T>& A);
-	Matrix operator+(Matrix<T>& A);
-	Matrix operator-(Matrix<T>& A);
-	Matrix operator*(Matrix<T>& A);
+	TMatrix(int n);
+	TMatrix(TMatrix<T>& A);
+	TMatrix(TVector<TVector<T> >& A);
+	bool operator==(TMatrix<T>& A);
+	TMatrix& operator=(TMatrix<T>& A);
+	TMatrix operator+(TMatrix<T>& A);
+	TMatrix operator-(TMatrix<T>& A);
+	TMatrix operator*(TMatrix<T>& A);
 };
 
 template <class T>
-Matrix<T>::Matrix(int n):TVector<TVector<T> >(n)
+TMatrix<T>::TMatrix(int n):TVector<TVector<T> >(n)
 {
 	for(int i = 0; i < n; i++)
     this->p[i] = TVector<T>(n - i);
@@ -24,14 +24,14 @@ Matrix<T>::Matrix(int n):TVector<TVector<T> >(n)
 
 
 template <class T>
-Matrix<T>::Matrix(Matrix<T>& A):TVector<TVector<T> >(A)
+TMatrix<T>::TMatrix(TMatrix<T>& A):TVector<TVector<T> >(A)
 {
 
 }
 
 
 template <class T>
-Matrix<T>::Matrix(TVector<TVector<T> >& A) :TVector<TVector<T> >(A)
+TMatrix<T>::TMatrix(TVector<TVector<T> >& A) :TVector<TVector<T> >(A)
 {
 	for (int i = 0; i < A.GetSize(); i++)
 		if (A[i].GetSize() != this->l - i)
@@ -41,7 +41,7 @@ Matrix<T>::Matrix(TVector<TVector<T> >& A) :TVector<TVector<T> >(A)
 
 
 template <class T>
-bool  Matrix<T>::operator == (Matrix<T>& A)
+bool  TMatrix<T>::operator == (TMatrix<T>& A)
 {
 	if (this->l != A.l)
 		return false;
@@ -54,7 +54,7 @@ bool  Matrix<T>::operator == (Matrix<T>& A)
 }
 
 template <class T>
-Matrix<T>&  Matrix<T>::operator = (Matrix& A)
+TMatrix<T>&  TMatrix<T>::operator = (TMatrix& A)
 {
 	if (this->l != A.l)
 	{
@@ -71,7 +71,7 @@ Matrix<T>&  Matrix<T>::operator = (Matrix& A)
 }
 
 template <class T>
-Matrix<T> Matrix<T>::operator + (Matrix<T>& A)
+TMatrix<T> TMatrix<T>::operator + (TMatrix<T>& A)
 {
 	if (this->l != A.l)
 		throw(1);
@@ -84,12 +84,12 @@ Matrix<T> Matrix<T>::operator + (Matrix<T>& A)
 }
 
 template <class T>
-Matrix<T> Matrix<T>::operator - (Matrix<T>& A)
+TMatrix<T> TMatrix<T>::operator - (TMatrix<T>& A)
 {
 	if (this->l != A.l)
 		throw(1);
 
-	Matrix<T> temp(this->l);
+	TMatrix<T> temp(this->l);
 	for (int i = 0; i < this->l; i++)
 		temp[i] = this->p[i] - A.p[i];
 
@@ -97,12 +97,12 @@ Matrix<T> Matrix<T>::operator - (Matrix<T>& A)
 }
 
 template <class T>
-Matrix<T> Matrix<T>::operator * (Matrix<T>& A)
+TMatrix<T> TMatrix<T>::operator * (TMatrix<T>& A)
 {
 	if (this->l != A.l)
 		throw(1);
 
-	Matrix<T> temp(this->l);
+	TMatrix<T> temp(this->l);
 	for (int i = 0; i < this->l; i++)
 		for (int j = 0; j < this->l - i; j++)
 			for (int k = 0; k < this->l - (j + i); k++)
