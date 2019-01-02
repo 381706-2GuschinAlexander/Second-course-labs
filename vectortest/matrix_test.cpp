@@ -107,8 +107,8 @@ TEST(Matrix, plus_with_matrix)
   Matrix<int> C(1);
 	A[0][0] = 4;
 	B[0][0] = 3;
-	C = A + B;
-	EXPECT_EQ(C[0][0], 7);
+	
+	EXPECT_EQ((A + B)[0][0], 7);
 }
 
 TEST(Matrix, minus_with_invalid_matrix)
