@@ -14,17 +14,17 @@ public:
 	TVector(TVector<T>& A);
 	~TVector();
 	int GetSize(); //return lenght
-	virtual bool operator != (TVector<T>& A);
-	virtual bool operator == (TVector<T>& A);
-	virtual TVector<T>& operator = (TVector<T> &A);
-	virtual T& operator [](int i);
-	virtual TVector<T> operator + (TVector<T> &A);
-	virtual TVector<T> operator - (TVector<T>& A);
-	virtual TVector<T> operator * (TVector<T> &A);
+	/*virtual*/ bool operator != (TVector<T>& A);
+	/*virtual*/ bool operator == (TVector<T>& A);
+	/*virtual*/ TVector<T>& operator = (TVector<T> &A);
+	/*virtual*/ T& operator [](int i);
+	/*virtual*/ TVector<T> operator + (TVector<T> &A);
+	/*virtual*/ TVector<T> operator - (TVector<T>& A);
+	/*virtual*/ TVector<T> operator * (TVector<T> &A);
 
-	virtual TVector<T> operator + (T& k);
-	virtual TVector<T> operator - (T& k);
-	virtual TVector<T> operator * (T& k);
+	/*virtual*/ TVector<T> operator + (T& k);
+	/*virtual*/ TVector<T> operator - (T& k);
+	/*virtual*/ TVector<T> operator * (T& k);
 
 	/*freind istream& operator >> (istream& in, TVector& A);*/
 };
