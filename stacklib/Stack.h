@@ -59,7 +59,7 @@ int Stack<T>::GetSize()
 template <class T>
 int Stack<T>::GetCount()
 {
-  return t + 1;
+  return top + 1;
 }
 
 template <class T>

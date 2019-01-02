@@ -64,7 +64,7 @@ Matrix<T>&  Matrix<T>::operator = (Matrix& A)
 		
 		delete[] this->p;
     this->l = A.l;
-    this->p = new TVector<T>[l];
+    this->p = new TVector<T>[this->l];
 	}
 		
 	for (int i = 0; i < this->l; i++)
