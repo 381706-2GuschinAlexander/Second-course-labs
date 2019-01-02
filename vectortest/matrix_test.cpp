@@ -104,11 +104,11 @@ TEST(Matrix, plus_with_matrix)
 {
 	Matrix<int> A(1);
 	Matrix<int> B(1);
-
+  Matrix<int> C(1);
 	A[0][0] = 4;
 	B[0][0] = 3;
-	A = A + B;
-	EXPECT_EQ(A[0][0], 7);
+	C = A + B;
+	EXPECT_EQ(C[0][0], 7);
 }
 
 TEST(Matrix, minus_with_invalid_matrix)

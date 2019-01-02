@@ -1,15 +1,15 @@
 #pragma once
 #include "exception.h"
 template <class T>
-class Stack
+class TStack
 {
 protected:
   T * p;//pointer
   int top;
   int memSize;
 public:
-  Stack(int ms);
-  ~Stack();
+  TStack(int ms);
+  ~TStack();
   bool IsEmpty();
   bool IsFull();
   int GetSize();
@@ -19,7 +19,7 @@ public:
 };
 
 template <class T>
-Stack<T>::Stack(int ms)
+TStack<T>::TStack(int ms)
 {
   if (ms < 0)
     throw __NEG_SIZE;
@@ -33,37 +33,37 @@ Stack<T>::Stack(int ms)
 }
 
 template <class T>
-Stack<T>::~Stack()
+TStack<T>::~TStack()
 {
   delete[] p;
 }
 
 template <class T>
-bool Stack<T>::IsEmpty()
+bool TStack<T>::IsEmpty()
 {
   return top == -1;
 }
 
 template <class T>
-bool Stack<T>::IsFull()
+bool TStack<T>::IsFull()
 {
   return top == (memSize - 1);
 }
 
 template <class T>
-int Stack<T>::GetSize()
+int TStack<T>::GetSize()
 {
   return memSize;
 }
 
 template <class T>
-int Stack<T>::GetCount()
+int TStack<T>::GetCount()
 {
   return top + 1;
 }
 
 template <class T>
-void Stack<T>::Put(const T s)
+void TStack<T>::Put(const T s)
 {
   if (IsFull())
     throw(__STACK_IS_FULL);
@@ -72,7 +72,7 @@ void Stack<T>::Put(const T s)
 }
 
 template <class T>
-T Stack<T>::Get()
+T TStack<T>::Get()
 {
   if (IsEmpty())
     throw(__STACK_IS_EMPTY);
