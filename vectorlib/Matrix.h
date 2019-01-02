@@ -24,21 +24,18 @@ Matrix<T>::Matrix(int n):TVector<TVector<T> >(n)
 
 
 template <class T>
-Matrix<T>::Matrix(Matrix<T>& A):TVector<TVector<T> >(A.GetSize())
+Matrix<T>::Matrix(Matrix<T>& A):TVector<TVector<T> >(A)
 {
-	for (int i = 0; i < this->l; i++)
-    this->p[i] = A.p[i];
+
 }
 
 
 template <class T>
-Matrix<T>::Matrix(TVector<TVector<T> >& A) :TVector<TVector<T> >(A.GetSize())
+Matrix<T>::Matrix(TVector<TVector<T> >& A) :TVector<TVector<T> >(A)
 {
 	for (int i = 0; i < A.GetSize(); i++)
 		if (A[i].GetSize() != this->l - i)
 			throw (1);
-	for (int i = 0; i < this->l; i++)
-    this->p[i] = A[i];
 }
 
 

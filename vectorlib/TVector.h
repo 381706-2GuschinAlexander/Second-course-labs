@@ -65,8 +65,9 @@ TVector<T>::TVector(TVector<T>& A)
 
 template <class T>
 TVector<T>::~TVector()
-{
-	delete[] p;
+{ 
+  if(p != NULL)
+	  delete[] p;
 }
 
 template <class T>
@@ -80,9 +81,14 @@ int TVector<T>::GetSize()
 template<class T>
 TVector<T>& TVector<T>::operator=(TVector<T>& A)
 {
-	delete[] p;
-	l = A.l;
-	p = new T[l];
+  if (p != A.p) 
+  {
+    if(p != NULL)
+      delete[] p;
+    l = A.l;
+    p = new T[l];
+  }
+
 	for (int i = 0; i < l; i++)
 		p[i] = A.p[i];
 
