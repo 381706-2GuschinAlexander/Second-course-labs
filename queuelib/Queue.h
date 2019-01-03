@@ -21,13 +21,13 @@ TQueue<T>::TQueue(int n):TStack<T>(n)
 template<class T>
 void TQueue<T>::Put(const T s)
 {
-  if (IsFull())
+  if (this->IsFull())
     throw(__STACK_IS_FULL);
 
-  if (size > st + pos)
+  if (this->size > st + pos)
     this->p[st + pos] = s;
   else
-    this->p[st + pos - size] = s;
+    this->p[st + pos - this->size] = s;
 
   pos++;
 }
@@ -35,13 +35,13 @@ void TQueue<T>::Put(const T s)
 template<class T>
 T TQueue<T>::Get()
 {
-  if (IsEmpty())
+  if (this->IsEmpty())
     throw(__STACK_IS_EMPTY);
 
   T temp = this->p[st++];
 
   pos--;
 
-  if (st == size)
+  if (st == this->size)
     st = 0;
 }
