@@ -1,40 +1,56 @@
 #pragma once
 #include <iostream>
-
+#include "exception.h"
 template <class T>
 class TVector
 {
 protected:
 	int l; //lenght
 	T* p; //pointer
+
 public:
+	TVector();
 	TVector(int n);
 	TVector(TVector<T>& A);
 	~TVector();
 	int GetSize(); //return lenght
-	virtual bool operator == (TVector<T>& A);
-	virtual TVector<T>& operator = (TVector<T> &A);
-	virtual T& operator [](int i);
-	virtual TVector<T> operator + (TVector<T> &A);
-	virtual TVector<T> operator - (TVector<T>& A);
-	virtual TVector<T> operator * (TVector<T> &A);
-
-	virtual TVector<T> operator + (T& k);
-	virtual TVector<T> operator - (T& k);
-	virtual TVector<T> operator * (T& k);
+	bool operator != (TVector<T>& A);
+  bool operator == (TVector<T>& A);
+  TVector<T>& operator = (TVector<T> &A);
+	T& operator [](int i);
+	TVector<T> operator + (TVector<T> &A);
+	TVector<T> operator - (TVector<T>& A);
+	TVector<T> operator * (TVector<T> &A);
+	TVector<T> operator + (T& k);
+	TVector<T> operator - (T& k);
+	TVector<T> operator * (T& k);
 
 	/*freind istream& operator >> (istream& in, TVector& A);*/
 };
 
 template <class T>
+TVector<T>::TVector()
+{
+  l = 0;
+  p = NULL;
+}
+
+template <class T>
 TVector<T>::TVector(int n)
 {
-	if (n <= 0)
+	if (n < 0)
 		throw(1);
-	else
+	else if (n == 0)
+  {
+    l = 0;
+    p = NULL;
+  } 
+  else
 	{
 		l = n;
 		p = new T[l];
+    for (int i = 0; i < l; i++)
+      p[i] = (T)0;
 	}
 }
 
@@ -49,8 +65,9 @@ TVector<T>::TVector(TVector<T>& A)
 
 template <class T>
 TVector<T>::~TVector()
-{
-	delete[] p;
+{ 
+  if(p != NULL)
+	  delete[] p;
 }
 
 template <class T>
@@ -59,12 +76,19 @@ int TVector<T>::GetSize()
 	return l;
 }
 
+
+
 template<class T>
 TVector<T>& TVector<T>::operator=(TVector<T>& A)
 {
-	delete[] p;
-	l = A.l;
-	p = new T[l];
+  if (p != A.p) 
+  {
+    if(p != NULL)
+      delete[] p;
+    l = A.l;
+    p = new T[l];
+  }
+
 	for (int i = 0; i < l; i++)
 		p[i] = A.p[i];
 
@@ -80,6 +104,17 @@ bool TVector<T>::operator == (TVector<T>& A)
 		if (p[i] != A.p[i])
 			return false;
 	return true;
+}
+
+template<class T>
+bool TVector<T>::operator!=(TVector<T>& A)
+{
+	if (l != A.l)
+		return true;
+	for (int i = 0; i < l; i++)
+		if (p[i] != A.p[i])
+			return true;
+	return false;
 }
 
 template<class T>
