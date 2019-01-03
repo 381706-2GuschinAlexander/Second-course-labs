@@ -8,8 +8,7 @@ before_script:
 script:
   - cmake ../381706-2_Guschin_Lab
   - make -j
-  - cd ./bin/
-  - ./queuetest
-  - ./stacktest
+  - ./queuetest/Release/queuetest
+  - ./stacktest/Release/stacktest
 notifications:
   email: false
