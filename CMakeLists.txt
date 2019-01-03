@@ -24,7 +24,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/vectorlib
  ${CMAKE_CURRENT_SOURCE_DIR}/gtest
  ${CMAKE_CURRENT_SOURCE_DIR}/exception
  ${CMAKE_CURRENT_SOURCE_DIR}/stacklib
- ${CMAKE_CURRENT_SOURCE_DIR}/queue)
+ ${CMAKE_CURRENT_SOURCE_DIR}/queuelib)
 
 add_subdirectory(vector)
 add_subdirectory(vectorlib)

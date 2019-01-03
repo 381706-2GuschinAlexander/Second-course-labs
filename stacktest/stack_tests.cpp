@@ -12,7 +12,7 @@ TEST(TStack, can_create_stack_with_zero_size)
   ASSERT_NO_THROW(TStack<int> s(0));
 }
 
-TEST(TStack, cannot_create_with_negative_size)
+TEST(TStack, throw_when_create_with_negative_size)
 {
   ASSERT_ANY_THROW(TStack<int> s(-3));
 }
@@ -52,7 +52,7 @@ TEST(TStack, IsFull_when_full)
   EXPECT_EQ(1, st.IsFull());
 }
 
-TEST(TStack, cannot_put_in_full_stack)
+TEST(TStack, throw_when_put_in_full_stack)
 {
   TStack<int> st(2);
   for (int i = 0; i < 2; i++)
@@ -82,7 +82,7 @@ TEST(TStack, can_get_value)
   EXPECT_EQ(77, st.Get());
 }
 
-TEST(TStack, cannot_get_from_empty_stack)
+TEST(TStack, throw_when_get_from_empty_stack)
 {
   TStack<int> st(1);
   ASSERT_ANY_THROW(st.Get());

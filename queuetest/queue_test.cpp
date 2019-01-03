@@ -1,89 +1,80 @@
 #include <gtest.h>
-#include "Stack.h"
+#include "Queue.h"
 
-TEST(TStack, can_create_stack_with_positive_size)
+TEST(TQueue, can_create_with_positive_size)
 {
-  ASSERT_NO_THROW(TStack<int> s(3));
+  ASSERT_NO_THROW(TQueue<int> s(3));
 }
 
-
-TEST(TStack, can_create_stack_with_zero_size)
+TEST(TQueue, can_create_with_zero_size)
 {
-  ASSERT_NO_THROW(TStack<int> s(0));
+  ASSERT_NO_THROW(TQueue<int> s(0));
 }
 
-TEST(TStack, cannot_create_with_negative_size)
+TEST(TQueue, throw_when_create_with_negative_size)
 {
-  ASSERT_ANY_THROW(TStack<int> s(-3));
+  ASSERT_ANY_THROW(TQueue<int> s(-3));
 }
 
-TEST(TStack, can_get_size)
+TEST(TQueue, can_get_size)
 {
-  TStack<int> st(50);
+  TQueue<int> st(50);
 
   EXPECT_EQ(50, st.GetSize());
 }
 
-TEST(TStack, IsEmpty_when_empty)
+TEST(TQueue, IsEmpty_when_empty)
 {
-  TStack<int> st(1);
+  TQueue<int> st(1);
 
   EXPECT_EQ(1, st.IsEmpty());
 }
 
-TEST(TStack, IsEmpty_when_full)
+TEST(TQueue, IsEmpty_when_full)
 {
-  TStack<int> st(1);
+  TQueue<int> st(1);
   st.Put(1);
 
   EXPECT_EQ(0, st.IsEmpty());
 }
 
-TEST(TStack, IsFull_when_empty)
+TEST(TQueue, IsFull_when_empty)
 {
-  TStack<int> st(1);
+  TQueue<int> st(1);
   EXPECT_EQ(0, st.IsFull());
 }
 
-TEST(TStack, IsFull_when_full)
+TEST(TQueue, IsFull_when_full)
 {
-  TStack<int> st(1);
+  TQueue<int> st(1);
   st.Put(1);
   EXPECT_EQ(1, st.IsFull());
 }
 
-TEST(TStack, cannot_put_in_full_stack)
+TEST(TQueue, throw_when_put_in_full_stack)
 {
-  TStack<int> st(2);
+  TQueue<int> st(2);
   for (int i = 0; i < 2; i++)
    st.Put(3);
   ASSERT_ANY_THROW(st.Put(3));
 }
 
-TEST(TStack, can_put_value)
+TEST(TQueue, can_put_and_get_multyply_times)
 {
-  TStack<int> st(10);
-
-  ASSERT_NO_THROW(st.Put(3));
+  TQueue<int> st(10);
+  int res = -1;
+  for (int i = 0; i < 10; i++)
+    st.Put(i);
+  for (int i = 0; i < 5; i++)
+    res = st.Get();
+  st.Put(99);
+  res = st.Get();
+  EXPECT_EQ(6, res);
 }
 
-TEST(TStack, can_put_multyply_times)
-{
-  TStack<int> st(10);
-  st.Put(6);
-  st.Put(5);
-  EXPECT_EQ(5, st.Get());
-}
 
-TEST(TStack, can_get_value)
+TEST(TQueue, throw_when_get_from_empty_stack)
 {
-  TStack<int> st(10);
-  st.Put(77);
-  EXPECT_EQ(77, st.Get());
-}
-
-TEST(TStack, cannot_get_from_empty_stack)
-{
-  TStack<int> st(1);
+  TQueue<int> st(1);
   ASSERT_ANY_THROW(st.Get());
 }
