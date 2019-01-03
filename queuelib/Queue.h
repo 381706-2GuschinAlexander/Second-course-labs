@@ -44,4 +44,6 @@ T TQueue<T>::Get()
 
   if (st == this->size)
     st = 0;
+
+  return temp;
 }
