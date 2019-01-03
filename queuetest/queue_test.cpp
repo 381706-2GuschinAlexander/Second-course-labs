@@ -69,7 +69,7 @@ TEST(TQueue, can_put_and_get_multyply_times)
     res = st.Get();
   st.Put(99);
   res = st.Get();
-  EXPECT_EQ(6, res);
+  EXPECT_EQ(5, res);
 }
 
 

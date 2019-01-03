@@ -3,7 +3,7 @@
 
 template <class T>
 class TQueue : public TStack<T>
-{
+{  
 private:
   int st;
 public:
@@ -44,4 +44,6 @@ T TQueue<T>::Get()
 
   if (st == this->size)
     st = 0;
+
+  return temp;
 }
