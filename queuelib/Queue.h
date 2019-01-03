@@ -24,12 +24,12 @@ void TQueue<T>::Put(const T s)
   if (this->IsFull())
     throw(__STACK_IS_FULL);
 
-  if (this->size > st + pos)
-    this->p[st + pos] = s;
+  if (this->size > st + this->pos)
+    this->p[st + this->pos] = s;
   else
-    this->p[st + pos - this->size] = s;
+    this->p[st + this->pos - this->size] = s;
 
-  pos++;
+  this->pos++;
 }
 
 template<class T>
@@ -40,7 +40,7 @@ T TQueue<T>::Get()
 
   T temp = this->p[st++];
 
-  pos--;
+  this->pos--;
 
   if (st == this->size)
     st = 0;
