@@ -3,9 +3,7 @@
 set(PROJECT_NAME 381706-2_Guschin_Lab) #Создаем обычную локальную переменную с именем проекта
 project(${PROJECT_NAME}) # Название проекта
 
-set(vector vector) #Переменная с именем библиотеки
-set(vectorlib vectorlib) #Переменная с именем библиотеки
-set(vectortest vectortest)
+
 set(stack stack)
 set(stacklib stacklib)
 set(stacktest stacktest)
@@ -20,16 +18,15 @@ if(NOT CMAKE_BUILD_TYPE) # проверка имеющихся у компиля
   set(CMAKE_BUILD_TYPE Release) #Если нет то устанавливаем Release
 endif()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/vectorlib
+include_directories(
  ${CMAKE_CURRENT_SOURCE_DIR}/gtest
  ${CMAKE_CURRENT_SOURCE_DIR}/exception
  ${CMAKE_CURRENT_SOURCE_DIR}/stacklib
  ${CMAKE_CURRENT_SOURCE_DIR}/queuelib)
 
-add_subdirectory(vector)
-add_subdirectory(vectorlib)
+
 add_subdirectory(gtest)
-add_subdirectory(vectortest)
+
 add_subdirectory(stack)
 add_subdirectory(stacklib)
 add_subdirectory(stacktest)
