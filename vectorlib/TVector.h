@@ -11,19 +11,19 @@ protected:
 public:
 	TVector();
 	TVector(int n);
-	TVector(TVector<T>& A);
+	TVector(const TVector<T>& A);
 	~TVector();
 	int GetSize(); //return lenght
-	bool operator != (TVector<T>& A);
-  bool operator == (TVector<T>& A);
-  TVector<T>& operator = (TVector<T> &A);
+	bool operator != (const TVector<T>& A);
+  bool operator == (const TVector<T>& A);
+  TVector<T>& operator = (const TVector<T> &A);
 	T& operator [](int i);
-	TVector<T> operator + (TVector<T> &A);
-	TVector<T> operator - (TVector<T>& A);
-	TVector<T> operator * (TVector<T> &A);
-	TVector<T> operator + (T& k);
-	TVector<T> operator - (T& k);
-	TVector<T> operator * (T& k);
+	TVector<T> operator + (const TVector<T> &A);
+	TVector<T> operator - (const TVector<T>& A);
+	TVector<T> operator * (const TVector<T> &A);
+	TVector<T> operator + (const T& k);
+	TVector<T> operator - (const T& k);
+	TVector<T> operator * (const T& k);
 
 	/*freind istream& operator >> (istream& in, TVector& A);*/
 };
@@ -55,7 +55,7 @@ TVector<T>::TVector(int n)
 }
 
 template <class T>
-TVector<T>::TVector(TVector<T>& A)
+TVector<T>::TVector(const TVector<T>& A)
 {
 	l = A.l;
 	p = new T[l];
@@ -79,16 +79,12 @@ int TVector<T>::GetSize()
 
 
 template<class T>
-TVector<T>& TVector<T>::operator=(TVector<T>& A)
+TVector<T>& TVector<T>::operator=(const TVector<T>& A)
 {
-  if (p != A.p) 
-  {
-    if(p != NULL)
-      delete[] p;
-    l = A.l;
-    p = new T[l];
-  }
-
+  if(p != NULL)
+    delete[] p;
+  l = A.l;
+  p = new T[l];
 	for (int i = 0; i < l; i++)
 		p[i] = A.p[i];
 
@@ -96,7 +92,7 @@ TVector<T>& TVector<T>::operator=(TVector<T>& A)
 }
 
 template<class T>
-bool TVector<T>::operator == (TVector<T>& A)
+bool TVector<T>::operator == (const TVector<T>& A)
 {
 	if (l != A.l)
 		return false;
@@ -107,7 +103,7 @@ bool TVector<T>::operator == (TVector<T>& A)
 }
 
 template<class T>
-bool TVector<T>::operator!=(TVector<T>& A)
+bool TVector<T>::operator!=(const TVector<T>& A)
 {
 	if (l != A.l)
 		return true;
@@ -127,7 +123,7 @@ T& TVector<T>::operator[](int i)
 }
 
 template<class T>
-TVector<T> TVector<T>::operator+(TVector<T>& A)
+TVector<T> TVector<T>::operator+(const TVector<T>& A)
 {
 	if (l != A.l)
 		throw (1);
@@ -139,7 +135,7 @@ TVector<T> TVector<T>::operator+(TVector<T>& A)
 
 
 template<class T>
-TVector<T> TVector<T>::operator-(TVector<T>& A)
+TVector<T> TVector<T>::operator-(const TVector<T>& A)
 {
 	if (l != A.l)
 		throw (1);
@@ -150,7 +146,7 @@ TVector<T> TVector<T>::operator-(TVector<T>& A)
 }
 
 template<class T>
-TVector<T> TVector<T>::operator*(TVector<T>& A)
+TVector<T> TVector<T>::operator*(const TVector<T>& A)
 {
 	if (l != A.l)
 		throw (1);
@@ -161,7 +157,7 @@ TVector<T> TVector<T>::operator*(TVector<T>& A)
 }
 
 template<class T>
-TVector<T> TVector<T>::operator+(T& k)
+TVector<T> TVector<T>::operator+(const T& k)
 {
 	TVector R(l);
 	for (int i = 0; i < l; i++)
@@ -170,7 +166,7 @@ TVector<T> TVector<T>::operator+(T& k)
 }
 
 template<class T>
-TVector<T> TVector<T>::operator-(T& k)
+TVector<T> TVector<T>::operator-(const T& k)
 {
 	TVector R(l);
 	for (int i = 0; i < l; i++)
@@ -179,7 +175,7 @@ TVector<T> TVector<T>::operator-(T& k)
 }
 
 template<class T>
-TVector<T> TVector<T>::operator*(T& k)
+TVector<T> TVector<T>::operator*(const T& k)
 {
 	TVector R(l);
 	for (int i = 0; i < l; i++)

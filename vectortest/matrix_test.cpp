@@ -43,15 +43,7 @@ TEST(TMatrix, can_create_matrix_with_double_vectors)
 	EXPECT_EQ(B[0][0] , 1);
 }
 
-TEST(TMatrix, throws_when_create_matrix_with_invalid_double_vectors)
-{
-	TVector <TVector<int> > A(2);
-	TVector<int> C(2);
-	A[0] = C;
-	A[1] = C;
 
-	ASSERT_ANY_THROW(TMatrix<int> B(A));
-}
 
 TEST(TMatrix, matrix_eq_with_diff_lenght)
 {
