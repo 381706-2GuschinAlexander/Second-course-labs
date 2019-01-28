@@ -6,6 +6,13 @@ TEST(TStack, can_create_stack_with_positive_size)
   ASSERT_NO_THROW(TStack<int> s(3));
 }
 
+TEST(TStack, can_create_stack_with_another_stack)
+{
+  TStack<int> A(3);
+  A.Put(1);
+  TStack<int> s(A);
+  EXPECT_EQ(s.Get(), 1);
+}
 
 TEST(TStack, can_create_stack_with_zero_size)
 {
@@ -86,4 +93,11 @@ TEST(TStack, throw_when_get_from_empty_stack)
 {
   TStack<int> st(1);
   ASSERT_ANY_THROW(st.Get());
+}
+
+TEST(TStack, can_check)
+{
+  TStack<int> st(10);
+  st.Put(77);
+  EXPECT_EQ(77, st.Check());
 }

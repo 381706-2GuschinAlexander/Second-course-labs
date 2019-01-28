@@ -8,14 +8,22 @@ private:
   int st;
 public:
   TQueue(int n);
+  TQueue(TQueue<T>& A);
   void Put(const T s);
   T Get();
+  T Check();
 };
 
 template<class T>
 TQueue<T>::TQueue(int n):TStack<T>(n)
 {
   st = 0;
+}
+
+template<class T>
+TQueue<T>::TQueue(TQueue<T>& A):TStack<T>(A)
+{
+  st = A.st;
 }
 
 template<class T>
@@ -46,4 +54,13 @@ T TQueue<T>::Get()
     st = 0;
 
   return temp;
+}
+
+template<class T>
+T TQueue<T>::Check()
+{
+  if (this->IsEmpty())
+    throw(__STACK_IS_EMPTY);
+
+  return this->p[st];
 }

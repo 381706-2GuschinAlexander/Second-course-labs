@@ -6,6 +6,18 @@ TEST(TQueue, can_create_with_positive_size)
   ASSERT_NO_THROW(TQueue<int> s(3));
 }
 
+TEST(TQueue, can_create_with_another_queue)
+{
+  TQueue<int> A(3);
+  A.Put(1);
+  A.Put(2);
+  A.Put(3);
+  A.Get();
+  A.Put(4);
+  TQueue<int> s(A);
+  EXPECT_EQ(s.Get(), 2);
+}
+
 TEST(TQueue, can_create_with_zero_size)
 {
   ASSERT_NO_THROW(TQueue<int> s(0));
@@ -77,4 +89,16 @@ TEST(TQueue, throw_when_get_from_empty_stack)
 {
   TQueue<int> st(1);
   ASSERT_ANY_THROW(st.Get());
+}
+
+TEST(TQueue, can_check)
+{
+  TQueue<int> st(3);
+  st.Put(1);
+  st.Put(2);
+  st.Put(3);
+  st.Get();
+  st.Get();
+  st.Put(4);
+  EXPECT_EQ(st.Check(), 3);
 }

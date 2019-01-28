@@ -9,6 +9,7 @@ protected:
   int size;
 public:
   TStack(int n);
+  TStack(TStack<T>& A);
   ~TStack();
   bool IsEmpty();
   bool IsFull();
@@ -16,6 +17,7 @@ public:
   int GetCount();
   void Put(const T s);
   T Get();
+  T Check();
 };
 
 template <class T>
@@ -30,6 +32,21 @@ TStack<T>::TStack(int n)
 
   pos = 0;
   size = n;
+}
+
+template<class T>
+TStack<T>::TStack(TStack<T>& A)
+{
+  size = A.size;
+
+  if (A.p == NULL)
+    p = NULL;
+  else
+    p = new T[A.size];
+  for (int i = 0; i < size; i++)
+    p[i] = A.p[i];
+
+  pos = A.pos;
 }
 
 template <class T>
@@ -77,4 +94,12 @@ T TStack<T>::Get()
   if (IsEmpty())
     throw(__STACK_IS_EMPTY);
   return p[--pos];
+}
+
+template<class T>
+T TStack<T>::Check()
+{
+  if (IsEmpty())
+    throw(__STACK_IS_EMPTY);
+  return p[pos - 1];
 }
