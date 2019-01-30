@@ -139,7 +139,7 @@ TEST(TMatrix, throws_when_multiply_with_invalid_matrix)
 	ASSERT_ANY_THROW(A * B);
 }
 
-TEST(TMatrix, multiply_with_matrix)
+/*TEST(TMatrix, multiply_with_matrix)
 {
 	TMatrix<int> A(3);
 	TMatrix<int> B(3);
@@ -152,4 +152,21 @@ TEST(TMatrix, multiply_with_matrix)
 		}
   bool d = (A * B == C ? 1 : 0);
   EXPECT_EQ(d, 1);
+}
+*/
+
+
+TEST(TMatrix, invert)
+{
+  TMatrix<int> A(3);
+  TMatrix<int> B(3);
+  for (int i = 0; i < 3; i++)
+    for (int j = 0; j < 3 - i; j++)
+    {
+      A[i][j] = 3 - i - j;
+    }
+  for (int i = 0; i < 3; i++)
+    B[i][2 - i] = 1;
+
+  EXPECT_EQ(A/A == B , 1);
 }

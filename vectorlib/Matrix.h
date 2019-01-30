@@ -12,7 +12,8 @@ public:
 	TMatrix& operator=(const TMatrix<T>& A);
 	TMatrix operator+(const TMatrix<T>& A);
 	TMatrix operator-(const TMatrix<T>& A);
-	TMatrix operator*(const TMatrix<T>& A);
+	TMatrix operator*(TMatrix<T>& A);
+  TMatrix operator/(TMatrix<T>& B);
 };
 
 template <class T>
@@ -92,16 +93,50 @@ TMatrix<T> TMatrix<T>::operator - (const TMatrix<T>& A)
 }
 
 template <class T>
-TMatrix<T> TMatrix<T>::operator * (const TMatrix<T>& A)
+TMatrix<T> TMatrix<T>::operator * (TMatrix<T>& A)
 {
 	if (this->l != A.l)
 		throw(1);
 
 	TMatrix<T> temp(this->l);
-	for (int i = 0; i < this->l; i++)
-		for (int j = 0; j < this->l - i; j++)
-			for (int k = 0; k < this->l - (j + i); k++)
-				temp[i][j] += this->p[i][k] * A.p[k][j];
+  for (int i = 0; i < this->l; i++)
+    for (int j = 0; j < this->l - i; j++)
+      for(int k = 0; j + i + k < this->l;k++)
+        temp[i][j] += this->p[this->l - 1 - (j + k)][j] * A[i][j + k];
 
 	return temp;
+}
+
+template<class T>
+TMatrix<T> TMatrix<T>::operator/(TMatrix<T>& B)
+{
+  if (this->l != B.l)
+    throw;
+
+  if (this->l == 1)
+    return (*this) * B;
+
+  T det = B[0][B.l - 1];
+  for (int i = 1; i < B.l; i++)
+    det = det * B[i][B.l - i - 1];
+
+  if (det == 0)
+    throw;
+
+  TMatrix<T> A(B);
+  TMatrix<T> _A(A.l);
+
+  for (int i = 0; i < A.l; i++)
+  {
+    for (int j = 0; j < A.l - i;j++)
+      A[i][j] = A[i][j] / A[i][A.l - i - 1];
+    _A[i][A.l - i - 1] = (T)1 / A[i][A.l - i - 1];
+  }
+
+  for (int i = 0; i < A.l - 1; i++)
+    for (int k = A.l - 2 - i; k >= 0; k--)
+      for (int j = i; j >= 0; j--)
+        _A[j][k] -= A[i][k] * _A[j][A.l - i - 1];
+
+  return (*this) * _A ;
 }
