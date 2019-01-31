@@ -25,17 +25,17 @@ public:
 	TVector<T> operator - (const T& k);
 	TVector<T> operator * (const T& k);
 
-  friend std::istream &operator>>(std::istream &in, TVector &A)
+  friend std::istream &operator>>(std::istream &in, TVector<T> &A)
   {
-    for (int i = 0; i < A.l; i++)
-      in >> A.m[i];
+    for (int i = A.l - 1; i >= 0; i--)
+      in >> A[i];
     return in;
   }
 
-  friend std::ostream &operator<<(std::ostream &out, TVector &A)
+  friend std::ostream &operator<<(std::ostream &out, TVector<T> &A)
   {
-    for (int i = 0; i < A.l; i++)
-      out << A.m[i] << ' ';
+    for (int i = A.l - 1; i >= 0; i--)
+      out << A[i] << ' ';
     return out;
   }
 };
@@ -51,7 +51,7 @@ template <class T>
 TVector<T>::TVector(int n)
 {
 	if (n < 0)
-		throw(1);
+		throw(__NEG_SIZE);
 	else if (n == 0)
   {
     l = 0;
@@ -129,7 +129,7 @@ template<class T>
 T& TVector<T>::operator[](int i)
 {
 	if (i >= l || i < 0)
-		throw(1);
+		throw(__IND_IS_OUT_OF_RANGE);
 	else
 		return p[i];
 }
@@ -138,7 +138,7 @@ template<class T>
 TVector<T> TVector<T>::operator+(const TVector<T>& A)
 {
 	if (l != A.l)
-		throw (1);
+		throw (__DIFF_SIZE);
 	TVector R(l);
 	for (int i = 0; i < l; i++)
 		R[i] = p[i] + A.p[i];
@@ -150,7 +150,7 @@ template<class T>
 TVector<T> TVector<T>::operator-(const TVector<T>& A)
 {
 	if (l != A.l)
-		throw (1);
+		throw (__DIFF_SIZE);
 	TVector R(l);
 	for (int i = 0; i < l; i++)
 		R[i] = p[i] - A.p[i];
@@ -161,7 +161,7 @@ template<class T>
 TVector<T> TVector<T>::operator*(const TVector<T>& A)
 {
 	if (l != A.l)
-		throw (1);
+		throw (__DIFF_SIZE);
 	TVector R(l);
 	for (int i = 0; i < l; i++)
 		R[i] = p[i] * A.p[i];

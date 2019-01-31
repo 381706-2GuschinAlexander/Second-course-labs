@@ -18,7 +18,7 @@ public:
   friend std::istream & operator>>(std::istream &in, TMatrix<T> &A)
   {
     for (int i = 0; i < A.l; i++)
-      in >> A.m[i];
+      in >> A[i];
     return in;
   }
 
@@ -26,13 +26,13 @@ public:
   {
     for (int i = 0; i < A.l; i++)
     {
-      if (A.GetSize() > A.m[i].GetSize())
+      if (A.GetSize() > A[i].GetSize())
       {
-        int tmp = A.GetSize() - A.m[i].GetSize();
+        int tmp = A.GetSize() - A[i].GetSize();
         for (int j = 0; j < tmp; j++)
           std::cout << 0 << " ";
       }
-      out << A.m[i] << std::endl;
+      out << A[i] << std::endl;
     }
     return out;
   }
@@ -92,7 +92,7 @@ template <class T>
 TMatrix<T> TMatrix<T>::operator + (const TMatrix<T>& A)
 {
 	if (this->l != A.l)
-		throw(1);
+		throw(__DIFF_SIZE);
 
 	TVector<TVector<T> > temp(this->l);
 	for (int i = 0; i < this->l; i++)
@@ -105,7 +105,7 @@ template <class T>
 TMatrix<T> TMatrix<T>::operator - (const TMatrix<T>& A)
 {
 	if (this->l != A.l)
-		throw(1);
+		throw(__DIFF_SIZE);
 
 	TMatrix<T> temp(this->l);
 	for (int i = 0; i < this->l; i++)
@@ -118,7 +118,7 @@ template <class T>
 TMatrix<T> TMatrix<T>::operator * (TMatrix<T>& A)
 {
 	if (this->l != A.l)
-		throw(1);
+		throw(__DIFF_SIZE);
 
 	TMatrix<T> temp(this->l);
   for (int i = 0; i < this->l; i++)
@@ -133,9 +133,9 @@ template<class T>
 TMatrix<T> TMatrix<T>::operator/(TMatrix<T>& B)
 {
   if (this->l != B.l)
-    throw;
+    throw(__DIFF_SIZE);
 
-  if (this->l == 1)
+  if (this->l <= 1)
     return (*this) * B;
 
   T det = B[0][B.l - 1];
@@ -143,7 +143,7 @@ TMatrix<T> TMatrix<T>::operator/(TMatrix<T>& B)
     det = det * B[i][B.l - i - 1];
 
   if (det == 0)
-    throw;
+    throw(__INVALID_MATRIX);
 
   TMatrix<T> A(B);
   TMatrix<T> _A(A.l);

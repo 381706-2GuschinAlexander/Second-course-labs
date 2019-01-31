@@ -24,38 +24,38 @@ public:
 };
 
 template<class T>
-inline int TMulStack<T>::CalcFree()
+int TMulStack<T>::CalcFree()
 {
   return 0;
 }
 
 template<class T>
-inline void TMulStack<T>::Resize()
+void TMulStack<T>::Resize()
 {
 }
 
 template<class T>
-inline TMulStack<T>::TMulStack(int _count, int _l)
+TMulStack<T>::TMulStack(int _count, int _l)
 {
 }
 
 template<class T>
-inline TMulStack<T>::TMulStack(TMulStack & A)
+TMulStack<T>::TMulStack(TMulStack & A)
 {
 }
 
 template<class T>
-inline TMulStack<T>::~TMulStack()
+TMulStack<T>::~TMulStack()
 {
 }
 
 template<class T>
-inline void TMulStack<T>::Put(T & a, int i)
+void TMulStack<T>::Put(T & a, int i)
 {
 }
 
 template<class T>
-inline T TMulStack<T>::Get(int i)
+T TMulStack<T>::Get(int i)
 {
   return T();
 }
