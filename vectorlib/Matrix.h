@@ -14,6 +14,28 @@ public:
 	TMatrix operator-(const TMatrix<T>& A);
 	TMatrix operator*(TMatrix<T>& A);
   TMatrix operator/(TMatrix<T>& B);
+
+  friend std::istream & operator>>(std::istream &in, TMatrix<T> &A)
+  {
+    for (int i = 0; i < A.l; i++)
+      in >> A.m[i];
+    return in;
+  }
+
+  friend std::ostream & operator<<(std::ostream &out, TMatrix<T> &A)
+  {
+    for (int i = 0; i < A.l; i++)
+    {
+      if (A.GetSize() > A.m[i].GetSize())
+      {
+        int tmp = A.GetSize() - A.m[i].GetSize();
+        for (int j = 0; j < tmp; j++)
+          cout << 0 << " ";
+      }
+      out << A.m[i] << endl;
+    }
+    return out;
+  }
 };
 
 template <class T>

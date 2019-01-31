@@ -25,7 +25,19 @@ public:
 	TVector<T> operator - (const T& k);
 	TVector<T> operator * (const T& k);
 
-	/*freind istream& operator >> (istream& in, TVector& A);*/
+  friend std::istream &operator>>(std::istream &in, TVector &A)
+  {
+    for (int i = 0; i < A.l; i++)
+      in >> A.m[i];
+    return in;
+  }
+
+  friend std::ostream &operator<<(std::ostream &out, TVector &A)
+  {
+    for (int i = 0; i < A.l; i++)
+      out << A.m[i] << ' ';
+    return out;
+  }
 };
 
 template <class T>
@@ -183,10 +195,3 @@ TVector<T> TVector<T>::operator*(const T& k)
 	return R;
 }
 
-/*template<class T>
-istream& TVector<T>::operator >> (istream& in, TVector& A)
-{
-	for (int i = 0; i < A.l; i++)
-		in >> A.p[i];
-	return in;
-}*/
