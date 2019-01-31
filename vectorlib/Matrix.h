@@ -26,12 +26,9 @@ public:
   {
     for (int i = 0; i < A.l; i++)
     {
-      if (A.GetSize() > A[i].GetSize())
-      {
-        int tmp = A.GetSize() - A[i].GetSize();
-        for (int j = 0; j < tmp; j++)
-          std::cout << 0 << " ";
-      }
+      int tmp = A.GetSize() - A[i].GetSize();
+      for (int j = 0; j < tmp; j++)
+        std::cout << 0 << " ";
       out << A[i] << std::endl;
     }
     return out;
