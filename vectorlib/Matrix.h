@@ -32,7 +32,7 @@ public:
         for (int j = 0; j < tmp; j++)
           std::cout << 0 << " ";
       }
-      out << A.m[i] << endl;
+      out << A.m[i] << std::endl;
     }
     return out;
   }
