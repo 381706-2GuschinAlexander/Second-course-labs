@@ -30,7 +30,7 @@ public:
       {
         int tmp = A.GetSize() - A.m[i].GetSize();
         for (int j = 0; j < tmp; j++)
-          cout << 0 << " ";
+          std::cout << 0 << " ";
       }
       out << A.m[i] << endl;
     }
