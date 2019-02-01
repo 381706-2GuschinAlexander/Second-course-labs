@@ -12,8 +12,8 @@ public:
 	TMatrix& operator=(const TMatrix<T>& A);
 	TMatrix operator+(const TMatrix<T>& A);
 	TMatrix operator-(const TMatrix<T>& A);
-	TMatrix operator*(TMatrix<T>& A);
-  TMatrix operator/(TMatrix<T>& B);
+	TMatrix operator*(const TMatrix<T>& A);
+  TMatrix operator/(const TMatrix<T>& B);
 
   friend std::istream & operator>>(std::istream &in, TMatrix<T> &A)
   {
@@ -22,7 +22,7 @@ public:
     return in;
   }
 
-  friend std::ostream & operator<<(std::ostream &out, TMatrix<T> &A)
+  friend std::ostream & operator<<(std::ostream &out,const TMatrix<T> &A)
   {
     for (int i = 0; i < A.l; i++)
     {
@@ -112,7 +112,7 @@ TMatrix<T> TMatrix<T>::operator - (const TMatrix<T>& A)
 }
 
 template <class T>
-TMatrix<T> TMatrix<T>::operator * (TMatrix<T>& A)
+TMatrix<T> TMatrix<T>::operator * (const TMatrix<T>& A)
 {
 	if (this->l != A.l)
 		throw(__DIFF_SIZE);
@@ -127,7 +127,7 @@ TMatrix<T> TMatrix<T>::operator * (TMatrix<T>& A)
 }
 
 template<class T>
-TMatrix<T> TMatrix<T>::operator/(TMatrix<T>& B)
+TMatrix<T> TMatrix<T>::operator/(const TMatrix<T>& B)
 {
   if (this->l != B.l)
     throw(__DIFF_SIZE);
