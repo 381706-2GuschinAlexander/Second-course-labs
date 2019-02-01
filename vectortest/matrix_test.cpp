@@ -80,6 +80,40 @@ TEST(TMatrix, matrix_eq_with_same_matrix)
 	EXPECT_EQ(A == B, true);
 }
 
+TEST(TMatrix, matrix_neq_with_diff_lenght)
+{
+  TMatrix<int> A(2);
+  TMatrix<int> B(3);
+
+  EXPECT_EQ(A != B, true);
+}
+
+TEST(TMatrix, matrix_neq_with_diff_matrix)
+{
+  TMatrix<int> A(2);
+  TMatrix<int> B(2);
+  A[0][0] = 0;
+  A[0][1] = 1;
+  A[1][0] = 1;
+  B[0][0] = 0;
+  B[0][1] = 2;
+  B[1][0] = 2;
+
+  EXPECT_EQ(A != B, true);
+}
+
+TEST(TMatrix, matrix_neq_with_same_matrix)
+{
+  TMatrix<int> A(2);
+  TMatrix<int> B(2);
+  A[0][0] = 0;
+  A[0][1] = 1;
+  A[1][0] = 1;
+  B[0][0] = 0;
+  B[0][1] = 1;
+  B[1][0] = 1;
+  EXPECT_EQ(A != B, false);
+}
 
 TEST(TMatrix, can_eq_matrix)
 {
@@ -139,7 +173,7 @@ TEST(TMatrix, throws_when_multiply_with_invalid_matrix)
 	ASSERT_ANY_THROW(A * B);
 }
 
-/*TEST(TMatrix, multiply_with_matrix)
+TEST(TMatrix, multiply_with_matrix)
 {
 	TMatrix<int> A(3);
 	TMatrix<int> B(3);
@@ -153,7 +187,7 @@ TEST(TMatrix, throws_when_multiply_with_invalid_matrix)
   bool d = (A * B == C ? 1 : 0);
   EXPECT_EQ(d, 1);
 }
-*/
+
 
 
 TEST(TMatrix, invert)

@@ -9,6 +9,7 @@ public:
 	TMatrix(const TMatrix<T>& A);
 	TMatrix(const TVector<TVector<T> >& A);
 	bool operator==(const TMatrix<T>& A);
+  bool operator!=(const TMatrix<T>& A);
 	TMatrix& operator=(const TMatrix<T>& A);
 	TMatrix operator+(const TMatrix<T>& A);
 	TMatrix operator-(const TMatrix<T>& A);
@@ -66,6 +67,20 @@ bool  TMatrix<T>::operator == (const TMatrix<T>& A)
 			return false;
 
 	return true;
+}
+
+template<class T>
+inline bool TMatrix<T>::operator!=(const TMatrix<T>& A)
+{
+  if (this->l != A.l)
+    return true;
+
+
+  for (int i = 0; i < this->l; i++)
+    if (this->p[i] != A.p[i])
+      return true;
+
+  return false;
 }
 
 template <class T>
