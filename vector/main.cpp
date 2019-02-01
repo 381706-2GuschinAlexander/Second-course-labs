@@ -9,6 +9,6 @@ int main()
   std::cin >> A;
   std::cout << "\nEnter second Matrix\n";
   std::cin >> B;
-  std::cout << TMatrix<double>(A * B);
+  std::cout << (A * B);
   return 0;
 }
