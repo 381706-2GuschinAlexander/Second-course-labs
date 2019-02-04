@@ -8,6 +8,7 @@ protected:
   int pos;
   int size;
 public:
+  TStack();
   TStack(int n);
   TStack(TStack<T>& A);
   ~TStack();
@@ -19,6 +20,14 @@ public:
   T Get();
   T Check();
 };
+
+template<class T>
+TStack<T>::TStack()
+{
+  p = NULL;
+  size = 0;
+  pos = 0;
+}
 
 template <class T>
 TStack<T>::TStack(int n)

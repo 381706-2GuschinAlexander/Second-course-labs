@@ -43,8 +43,6 @@ TEST(TMatrix, can_create_matrix_with_double_vectors)
 	EXPECT_EQ(B[0][0] , 1);
 }
 
-
-
 TEST(TMatrix, matrix_eq_with_diff_lenght)
 {
 	TMatrix<int> A(2);

@@ -11,5 +11,6 @@ script:
   - ./vectortest/vectortest
   - ./queuetest/queuetest
   - ./stacktest/stacktest
+  - ./multistacktest/multistacktest
 notifications:
   email: false
