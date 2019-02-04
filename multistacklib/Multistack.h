@@ -11,7 +11,6 @@ protected:
   T* gstack;
   T** ind;
   int* lenS;
-  int CalcFree(int i);
   bool Resize();
   int resizeCount;
 public:
@@ -22,12 +21,13 @@ public:
   T Get(int i);
   bool IsEmpty(int i);
   bool IsFull(int i);
+  int CalcFree(int i);
 };
 
 template<class T>
 int TMulStack<T>::CalcFree(int i)
 {
-  return (stacks[i]->GetSize() - stack[i]->GetCount());
+  return (stacks[i]->GetSize() - stacks[i]->GetCount());
 }
 
 template<class T>
