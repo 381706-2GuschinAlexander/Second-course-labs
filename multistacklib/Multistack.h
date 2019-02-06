@@ -11,29 +11,53 @@ protected:
   T* gstack;
   T** ind;
   int* lenS;
-  bool Resize();
+  bool Resize(int i);
   int resizeCount;
 public:
   TMulStack(int _count, int _l);
   TMulStack(TMulStack& A);
   ~TMulStack();
-  void Put(T a, int i);
+  void Put(T a, int _i);
   T Get(int i);
-  bool IsEmpty(int i);
-  bool IsFull(int i);
-  int CalcFree(int i);
+  bool IsEmpty(int _i);
+  bool IsFull(int _i);
+  int CalcFree(int _i);
 };
 
 template<class T>
-int TMulStack<T>::CalcFree(int i)
+int TMulStack<T>::CalcFree(int _i)
 {
-  return (stacks[i]->GetSize() - stacks[i]->GetCount());
+  return (stacks[_i]->GetSize() - stacks[_i]->GetCount());
 }
 
 template<class T>
-bool TMulStack<T>::Resize()
+bool TMulStack<T>::Resize(int _i)
 {
-  /*   OwO What this?  */
+  for (int i = 0; i < count; i++)
+  {
+    if (CalcFree(i) > 0)
+    {
+      stacks[i]->SetMem(ind[i], --lenS[i]);
+
+      if(i < _i)
+      { 
+        for (int j = i + 1; j < _i; j++)
+          stacks[j]->SetMem(--ind[j], lenS[j]);
+
+        stacks[_i]->SetMem(--ind[_i], ++lenS[_i]);
+
+        for (int k = ind[i + 1] - &gstack[0]; k < ind[_i + 1] - 1 - &gstack[0]; k++)
+          gstack[k] = gstack[k + 1];
+      }
+      else
+      {
+        
+
+      }
+
+      return true;
+    }
+  }
   return false;
 }
 
@@ -104,38 +128,38 @@ TMulStack<T>::TMulStack(TMulStack & A)
 template<class T>
 TMulStack<T>::~TMulStack()
 {
-  delete[] gstack;
+  delete[] stacks;
   delete[] ind;
   delete[] lenS;
 }
 
 template<class T>
-void TMulStack<T>::Put(T a, int i)
+void TMulStack<T>::Put(T a, int _i)
 {
-  if (IsFull(i) == true)
-    if (Resize() == false)
+  if (IsFull(_i) == true)
+    if (Resize(_i) == false)
       throw(1);
 
-  stacks[i]->Put(a);
+  stacks[_i]->Put(a);
 }
 
 template<class T>
-T TMulStack<T>::Get(int i)
+T TMulStack<T>::Get(int _i)
 {
-  if (IsEmpty(i) == true)
+  if (IsEmpty(_i) == true)
     throw(1);
  
-  return stacks[i]->Get();
+  return stacks[_i]->Get();
 }
 
 template<class T>
-bool TMulStack<T>::IsEmpty(int i)
+bool TMulStack<T>::IsEmpty(int _i)
 {
-  return stacks[i]->IsEmpty();
+  return stacks[_i]->IsEmpty();
 }
 
 template<class T>
-bool TMulStack<T>::IsFull(int i)
+bool TMulStack<T>::IsFull(int _i)
 {
-  return stacks[i]->IsFull();
+  return stacks[_i]->IsFull();
 }

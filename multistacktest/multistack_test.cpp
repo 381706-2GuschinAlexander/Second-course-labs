@@ -55,6 +55,16 @@ TEST(Multystack, can_put_and_get_from_stack)
   EXPECT_EQ(A.Get(0), 2);
 }
 
+TEST(Multystack, can_put_and_get_from_not_full_MS_stack)
+{
+  TMulStack<int> A(6, 6);
+  A.Put(1, 3);
+  A.Put(2, 3);
+  A.Put(3, 3);
+  A.Get(3);
+  EXPECT_EQ(A.Get(3), 2);
+}
+
 //add ? test for put/get in full_stack&not_full_MS
 //add test for resize()
 
