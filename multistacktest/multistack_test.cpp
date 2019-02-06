@@ -40,7 +40,12 @@ TEST(Multystack, IsFull_when_MS_is_empty)
   EXPECT_EQ(A.IsFull(0), 0);
 }
 
-//add ? test for IF
+TEST(Multystack, IsFull_when_MS_is_full)
+{
+  TMulStack<int> A(3, 3);
+  A.Put(1, 0);
+  EXPECT_EQ(A.IsFull(0), 1);
+}
 
 TEST(Multystack, throw_when_get_from_empty_stack)
 {
@@ -61,12 +66,35 @@ TEST(Multystack, can_put_and_get_from_not_full_MS_stack)
   A.Put(1, 3);
   A.Put(2, 3);
   A.Put(3, 3);
+  A.Put(4, 3);
+  A.Put(5, 3);
+  A.Put(6, 3);
   A.Get(3);
-  EXPECT_EQ(A.Get(3), 2);
+  A.Get(3);
+  A.Put(-1, 2);
+  A.Put(-2, 2);
+  EXPECT_EQ(A.Get(2), -2);
 }
 
-//add ? test for put/get in full_stack&not_full_MS
-//add test for resize()
+TEST(Multystack, throw_when_overput)
+{
+  TMulStack<int> A(2, 4);
+  A.Put(1, 0);
+  A.Put(2, 0);
+  A.Put(2, 0);
+  A.Put(2, 0);
+  ASSERT_ANY_THROW(A.Put(3, 0));
+}
+
+TEST(Multystack, resize)
+{
+  TMulStack<int> A(2, 4);
+  A.Put(1, 0);
+  A.Put(2, 0);
+  A.Put(2, 0);
+  A.Put(2, 0);
+  EXPECT_EQ(A.GetSize(0), 4);
+}
 
 TEST(Multystack, calc_free_in_empty_stack)
 {

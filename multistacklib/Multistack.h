@@ -19,6 +19,7 @@ public:
   ~TMulStack();
   void Put(T a, int _i);
   T Get(int i);
+  int GetSize(int i);
   bool IsEmpty(int _i);
   bool IsFull(int _i);
   int CalcFree(int _i);
@@ -51,10 +52,14 @@ bool TMulStack<T>::Resize(int _i)
       }
       else
       {
-        
+        for (int j = _i + 1; j < i; j++)
+          stacks[j]->SetMem(--ind[j], lenS[j]);
 
+        stacks[_i]->SetMem(ind[_i], ++lenS[_i]);
+
+        for (int k = ind[i + 1] - &gstack[0] - 1; k > ind[_i + 1] - &gstack[0]; k--)
+          gstack[k] = gstack[k - 1];
       }
-
       return true;
     }
   }
@@ -150,6 +155,12 @@ T TMulStack<T>::Get(int _i)
     throw(1);
  
   return stacks[_i]->Get();
+}
+
+template<class T>
+int TMulStack<T>::GetSize(int i)
+{
+  return stacks[i]->GetSize();
 }
 
 template<class T>
