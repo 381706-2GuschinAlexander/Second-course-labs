@@ -76,7 +76,7 @@ TEST(Multystack, can_put_and_get_from_not_full_MS_stack)
   EXPECT_EQ(A.Get(2), -2);
 }
 
-TEST(Multystack, throw_when_overput)
+TEST(Multystack, throw_when_put_in_full_MS)
 {
   TMulStack<int> A(2, 4);
   A.Put(1, 0);
@@ -86,7 +86,7 @@ TEST(Multystack, throw_when_overput)
   ASSERT_ANY_THROW(A.Put(3, 0));
 }
 
-TEST(Multystack, resize)
+TEST(Multystack, resize_with_empty_stacks)
 {
   TMulStack<int> A(2, 4);
   A.Put(1, 0);
@@ -94,6 +94,43 @@ TEST(Multystack, resize)
   A.Put(2, 0);
   A.Put(2, 0);
   EXPECT_EQ(A.GetSize(0), 4);
+}
+
+TEST(Multystack, resize_with_another_stack)
+{
+  TMulStack<int> A(3, 9);
+  A.Put(1, 0);
+  A.Put(2, 0);
+
+  A.Put(3, 1);
+  A.Put(4, 1);
+  A.Put(5, 1);
+
+  A.Put(6, 2);
+  A.Put(7, 2);
+
+  A.Put(8, 1);
+  A.Put(9, 1);
+
+  bool ifEq = true;
+
+  for (int i = 0; i < 2; i++)
+    if (A.Get(0) != 2 - i)
+      ifEq = false;
+
+  for (int i = 0; i < 2; i++)
+    if (A.Get(2) != 7 - i)
+      ifEq = false;
+
+  for (int i = 0; i < 2; i++)
+    if (A.Get(1) != 9 - i)
+      ifEq = false;
+
+  for (int i = 0; i < 3; i++)
+    if (A.Get(1) != 5 - i)
+      ifEq = false;
+
+  EXPECT_EQ(ifEq, 1);
 }
 
 TEST(Multystack, calc_free_in_empty_stack)

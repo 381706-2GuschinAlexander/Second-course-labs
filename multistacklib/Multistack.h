@@ -38,10 +38,11 @@ bool TMulStack<T>::Resize(int _i)
   {
     if (CalcFree(i) > 0)
     {
-      stacks[i]->SetMem(ind[i], --lenS[i]);
+      
 
       if(i < _i)
       { 
+        stacks[i]->SetMem(ind[i], --lenS[i]);
         for (int j = i + 1; j < _i; j++)
           stacks[j]->SetMem(--ind[j], lenS[j]);
 
@@ -52,12 +53,14 @@ bool TMulStack<T>::Resize(int _i)
       }
       else
       {
+        stacks[i]->SetMem(++ind[i], --lenS[i]);
+
         for (int j = _i + 1; j < i; j++)
-          stacks[j]->SetMem(--ind[j], lenS[j]);
+          stacks[j]->SetMem(++ind[j], lenS[j]);
 
         stacks[_i]->SetMem(ind[_i], ++lenS[_i]);
 
-        for (int k = ind[i + 1] - &gstack[0] - 1; k > ind[_i + 1] - &gstack[0]; k--)
+        for (int k = ind[i] - &gstack[0] + lenS[i] - 1; k >= ind[_i + 1] - &gstack[0]; k--)
           gstack[k] = gstack[k - 1];
       }
       return true;
