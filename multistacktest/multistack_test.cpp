@@ -6,6 +6,14 @@ TEST(Multystack, can_create_MS)
   ASSERT_NO_THROW(TMulStack<int> A(3, 10));
 }
 
+TEST(Multystack, can_create_MS_with_another_MS)
+{
+  TMulStack<int> A(3, 10);
+  A.Put(2, 0);
+  TMulStack<int> B(A);
+  EXPECT_EQ(B.Get(0), 2);
+}
+
 TEST(Multystack, throw_when_create_MS_with_count_bigger_then_l)
 {
   ASSERT_ANY_THROW(TMulStack<int> A(3, 1));
@@ -58,22 +66,6 @@ TEST(Multystack, can_put_and_get_from_stack)
   TMulStack<int> A(3, 10);
   A.Put(2, 0);
   EXPECT_EQ(A.Get(0), 2);
-}
-
-TEST(Multystack, can_put_and_get_from_not_full_MS_stack)
-{
-  TMulStack<int> A(6, 6);
-  A.Put(1, 3);
-  A.Put(2, 3);
-  A.Put(3, 3);
-  A.Put(4, 3);
-  A.Put(5, 3);
-  A.Put(6, 3);
-  A.Get(3);
-  A.Get(3);
-  A.Put(-1, 2);
-  A.Put(-2, 2);
-  EXPECT_EQ(A.Get(2), -2);
 }
 
 TEST(Multystack, throw_when_put_in_full_MS)

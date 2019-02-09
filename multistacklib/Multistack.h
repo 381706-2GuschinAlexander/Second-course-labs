@@ -15,7 +15,7 @@ protected:
   int resizeCount;
 public:
   TMulStack(int _count, int _l);
-  TMulStack(TMulStack& A);
+  TMulStack(const TMulStack& A);
   ~TMulStack();
   void Put(T a, int _i);
   T Get(int i);
@@ -38,8 +38,6 @@ bool TMulStack<T>::Resize(int _i)
   {
     if (CalcFree(i) > 0)
     {
-      
-
       if(i < _i)
       { 
         stacks[i]->SetMem(ind[i], --lenS[i]);
@@ -73,10 +71,10 @@ template<class T>
 TMulStack<T>::TMulStack(int _count, int _l)
 {
   if (_count < 0 || _l < 0)
-    throw(1);
+    throw(__NEG_SIZE);
 
   if(_count > _l)
-    throw(1);
+    throw(__INVALID_SIZE_CTL);
 
   int resizeCount = 0;  
   count = _count;
@@ -109,7 +107,7 @@ TMulStack<T>::TMulStack(int _count, int _l)
 }
 
 template<class T>
-TMulStack<T>::TMulStack(TMulStack & A)
+TMulStack<T>::TMulStack(const TMulStack& A)
 {
   int resizeCount = 0;
   count = A.count;
@@ -129,6 +127,14 @@ TMulStack<T>::TMulStack(TMulStack & A)
     t += lenS[i - 1];
   }
 
+  stacks = new MStack<T>*[count];
+  for (int i = 0; i < count; i++)
+  {
+    stacks[i] = new MStack<T>();
+    stacks[i]->SetMem(ind[i], lenS[i]);
+    stacks[i]->SetPos(A.stacks[i]->GetCount());
+  }
+
   for (int i = 0; i < l; i++)
     gstack[i] = A.gstack[i];
 }
@@ -136,7 +142,7 @@ TMulStack<T>::TMulStack(TMulStack & A)
 template<class T>
 TMulStack<T>::~TMulStack()
 {
-  delete[] stacks;
+  delete[] gstack;
   delete[] ind;
   delete[] lenS;
 }
@@ -146,7 +152,7 @@ void TMulStack<T>::Put(T a, int _i)
 {
   if (IsFull(_i) == true)
     if (Resize(_i) == false)
-      throw(1);
+      throw(__STACK_IS_FULL);
 
   stacks[_i]->Put(a);
 }
@@ -155,7 +161,7 @@ template<class T>
 T TMulStack<T>::Get(int _i)
 {
   if (IsEmpty(_i) == true)
-    throw(1);
+    throw(__STACK_IS_EMPTY);
  
   return stacks[_i]->Get();
 }

@@ -16,6 +16,9 @@ set(queuelib queuelib)
 set(multistack multistack)
 set(multistacktest multistacktest)
 set(multistacklib multistacklib)
+set(list list)
+set(listlib listlib)
+set(listtest listtest)
 
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
@@ -28,7 +31,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/vectorlib
  ${CMAKE_CURRENT_SOURCE_DIR}/exception
  ${CMAKE_CURRENT_SOURCE_DIR}/stacklib
  ${CMAKE_CURRENT_SOURCE_DIR}/queuelib
- ${CMAKE_CURRENT_SOURCE_DIR}/multistacklib)
+ ${CMAKE_CURRENT_SOURCE_DIR}/multistacklib
+ ${CMAKE_CURRENT_SOURCE_DIR}/listlib)
 
 add_subdirectory(vector)
 add_subdirectory(vectorlib)
@@ -44,6 +48,9 @@ add_subdirectory(queuelib)
 add_subdirectory(multistack)
 add_subdirectory(multistacktest)
 add_subdirectory(multistacklib)
+add_subdirectory(list)
+add_subdirectory(listlib)
+add_subdirectory(listtest)
 
 #file(GLOB hdrs "*.h*") #Добавляем в переменную hdrs все файлы с расширением .h
 #file(GLOB srcs "*.cpp") #Добавляем в переменную srcs все файлы с расширением .h

@@ -9,12 +9,20 @@ public:
     this->p = _p;
     this->size = _size;
   }
+
   MStack(int _size) :TStack<T>(_size)
   {
 
   }
+
   MStack():TStack<T>()
   {
 
   }
+
+  void SetPos(int _top)
+  {
+    this->pos =_top;
+  }
+
 };
