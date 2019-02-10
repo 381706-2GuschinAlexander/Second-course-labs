@@ -12,7 +12,14 @@ public:
   void SetValue(const T& a);
   T GetValue();
   TLink<T>* GetNextLink();
+  void setP(TLink<T>* _p);
 };
+
+template<class T>
+void TLink<T>::setP(TLink<T>* _p)
+{
+  p = _p;
+}
 
 template<class T>
 TLink<T>::TLink()
@@ -23,7 +30,7 @@ TLink<T>::TLink()
 template<class T>
 TLink<T>::TLink(const T & a, TLink<T>* _p)
 {
-  value = _a;
+  value = a;
   p = _p;
 }
 
@@ -37,7 +44,7 @@ TLink<T>::TLink(const TLink<T>& A)
 template<class T>
 void TLink<T>::SetValue(const T & a)
 {
-  /////
+  value = a;
 }
 
 template<class T>
