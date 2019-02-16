@@ -176,7 +176,7 @@ TMatrix<T> TMatrix<T>::operator/(const TMatrix<T>& B)
       T tmp = A[i][j];
       for (int k = j; k < this->l; k++)
       {
-        _A[i][k] = 0 - _A[j][k] * tmp;
+        _A[i][k] -= _A[j][k] * tmp;
         A[i][k] = A[i][k] - A[j][k] * tmp;
       }
     }
