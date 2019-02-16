@@ -40,7 +40,7 @@ template <class T>
 TMatrix<T>::TMatrix(int n):TVector<TVector<T> >(n)
 {
 	for(int i = 0; i < n; i++)
-    this->p[i] = TVector<T>(n - i);
+    this->p[i] = TVector<T>(n - i, i);
 }
 
 
@@ -134,9 +134,9 @@ TMatrix<T> TMatrix<T>::operator * (const TMatrix<T>& A)
 
 	TMatrix<T> temp(this->l);
   for (int i = 0; i < this->l; i++)
-    for (int j = 0; j < this->l - i; j++)
-      for(int k = 0; j + i + k < this->l;k++)
-        temp[i][j] += this->p[this->l - 1 - (j + k)][j] * A[i][j + k];
+    for (int j = i; j < this->l; j++)
+      for(int k = i; k < j + 1; k++)
+        temp[i][j] += this->p[i][k] * A[k][j];
 
 	return temp;
 }
@@ -150,9 +150,9 @@ TMatrix<T> TMatrix<T>::operator/(const TMatrix<T>& B)
   if (this->l <= 1)
     return (*this) * B;
 
-  T det = B[0][B.l - 1];
-  for (int i = 1; i < B.l; i++)
-    det = det * B[i][B.l - i - 1];
+  T det = B[0][0];
+  for (int i = 1; i < this->l; i++)
+    det = det * B[i][i];
 
   if (det == 0)
     throw(__INVALID_MATRIX);
@@ -160,17 +160,26 @@ TMatrix<T> TMatrix<T>::operator/(const TMatrix<T>& B)
   TMatrix<T> A(B);
   TMatrix<T> _A(A.l);
 
-  for (int i = 0; i < A.l; i++)
+  for (int i = 0; i < this->l; i++)
   {
-    for (int j = 0; j < A.l - i;j++)
-      A[i][j] = A[i][j] / A[i][A.l - i - 1];
-    _A[i][A.l - i - 1] = (T)1 / A[i][A.l - i - 1];
+    _A[i][i] = 1;
+    T k = A[i][i];
+    for (int j = i; j < this->l; j++)
+    {
+      A[i][j] = A[i][j] / k;
+      _A[i][j] = _A[i][j] / k;
+    }
   }
-
-  for (int i = 0; i < A.l - 1; i++)
-    for (int k = A.l - 2 - i; k >= 0; k--)
-      for (int j = i; j >= 0; j--)
-        _A[j][k] -= A[i][k] * _A[j][A.l - i - 1];
+  for (int j = 1; j < this->l; j++)
+    for (int i = j - 1; i >= 0; i--)
+    {
+      T tmp = A[i][j];
+      for (int k = j; k < this->l; k++)
+      {
+        _A[i][k] = 0 - _A[j][k] * tmp;
+        A[i][k] = A[i][k] - A[j][k] * tmp;
+      }
+    }
 
   return (*this) * _A ;
 }

@@ -15,8 +15,8 @@ TEST(TMatrix, can_get_value_in_range)
 {
 	TMatrix<int> A(3);
 	A[0][2] = 10;
-	A[2][0] = 5;
-	EXPECT_EQ(A[0][2] - A[2][0], 5);
+	A[1][2] = 5;
+	EXPECT_EQ(A[0][2] - A[1][2], 5);
 }
 
 TEST(TMatrix, throws_when_get_value_out_of_range)
@@ -35,8 +35,8 @@ TEST(TMatrix, can_create_matrix_with_matrix)
 
 TEST(TMatrix, can_create_matrix_with_double_vectors)
 {
-	TVector <TVector<int> > A(1);
-	TVector<int> C(1);
+	TVector <TVector<int> > A(1, 0);
+	TVector<int> C(1, 0);
 	A[0] = C;
 	A[0][0] = 1;
 	TMatrix<int> B(A);
@@ -57,10 +57,10 @@ TEST(TMatrix, matrix_eq_with_diff_matrix)
   TMatrix<int> B(2);
   A[0][0] = 0;
   A[0][1] = 1;
-  A[1][0] = 1;
+  A[1][1] = 1;
   B[0][0] = 0;
   B[0][1] = 2;
-  B[1][0] = 2;
+  B[1][1] = 2;
 
 	EXPECT_EQ(A == B, false);
 }
@@ -71,10 +71,10 @@ TEST(TMatrix, matrix_eq_with_same_matrix)
   TMatrix<int> B(2);
   A[0][0] = 0;
   A[0][1] = 1;
-  A[1][0] = 1;
+  A[1][1] = 1;
   B[0][0] = 0;
   B[0][1] = 1;
-  B[1][0] = 1;
+  B[1][1] = 1;
 	EXPECT_EQ(A == B, true);
 }
 
@@ -92,10 +92,10 @@ TEST(TMatrix, matrix_neq_with_diff_matrix)
   TMatrix<int> B(2);
   A[0][0] = 0;
   A[0][1] = 1;
-  A[1][0] = 1;
+  A[1][1] = 1;
   B[0][0] = 0;
   B[0][1] = 2;
-  B[1][0] = 2;
+  B[1][1] = 2;
 
   EXPECT_EQ(A != B, true);
 }
@@ -106,10 +106,10 @@ TEST(TMatrix, matrix_neq_with_same_matrix)
   TMatrix<int> B(2);
   A[0][0] = 0;
   A[0][1] = 1;
-  A[1][0] = 1;
+  A[1][1] = 1;
   B[0][0] = 0;
   B[0][1] = 1;
-  B[1][0] = 1;
+  B[1][1] = 1;
   EXPECT_EQ(A != B, false);
 }
 
@@ -138,10 +138,10 @@ TEST(TMatrix, plus_with_matrix)
 	TMatrix<int> B(2);
 	A[0][0] = 0;
   A[0][1] = 1;
-  A[1][0] = 1;
+  A[1][1] = 1;
   B[0][0] = 0;
   B[0][1] = 2;
-  B[1][0] = 2;
+  B[1][1] = 2;
 	EXPECT_EQ((A + A) == B, 1);
 }
 
@@ -173,16 +173,17 @@ TEST(TMatrix, throws_when_multiply_with_invalid_matrix)
 
 TEST(TMatrix, multiply_with_matrix)
 {
-	TMatrix<int> A(3);
-	TMatrix<int> B(3);
-	TMatrix<int> C(3);
-	for(int i = 0; i < 3; i++)
-	  for (int j = 0; j < 3 - i; j++)
-		{
-			A[i][j] = B[i][j] = 1;
-			C[i][j] = 3 - i - j;
-		}
-  bool d = (A * B == C ? 1 : 0);
+	TMatrix<int> A(2);
+	TMatrix<int> B(2);
+	TMatrix<int> C(2);
+  A[0][0] = 1;
+  A[0][1] = 1;
+  A[1][1] = 1;
+  B[0][0] = 1;
+  B[0][1] = 2;
+  B[1][1] = 1;
+  C = A;
+  bool d = (A * C == B ? 1 : 0);
   EXPECT_EQ(d, 1);
 }
 
@@ -192,13 +193,20 @@ TEST(TMatrix, invert)
 {
   TMatrix<int> A(3);
   TMatrix<int> B(3);
-  for (int i = 0; i < 3; i++)
-    for (int j = 0; j < 3 - i; j++)
-    {
-      A[i][j] = 3 - i - j;
-    }
-  for (int i = 0; i < 3; i++)
-    B[i][2 - i] = 1;
+  A[0][0] = 1;
+  A[0][1] = 2;
+  A[0][2] = 3;
+  A[1][1] = 1;
+  A[1][2] = 2;
+  A[2][2] = 1;
+  
+
+  B[0][0] = 1;
+  B[0][1] = 0;
+  B[0][2] = 0;
+  B[1][1] = 1;
+  B[1][2] = 0;
+  B[2][2] = 1;
 
   EXPECT_EQ(A/A == B , 1);
 }

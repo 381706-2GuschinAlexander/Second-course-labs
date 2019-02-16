@@ -7,10 +7,11 @@ class TVector
 protected:
 	int l; //lenght
 	T* p; //pointer
-
+  int pos;//position
 public:
 	TVector();
-	TVector(int n);
+	TVector(int n, int _pos);
+  TVector(int n);
 	TVector(const TVector<T>& A);
 	~TVector();
 	int GetSize() const; //return lenght
@@ -45,10 +46,13 @@ TVector<T>::TVector()
 {
   l = 0;
   p = NULL;
+  pos = 0;
 }
 
+
+
 template <class T>
-TVector<T>::TVector(int n)
+TVector<T>::TVector(int n, int _pos)
 {
 	if (n < 0)
 		throw(__NEG_SIZE);
@@ -56,6 +60,7 @@ TVector<T>::TVector(int n)
   {
     l = 0;
     p = NULL;
+    pos = 0;
   } 
   else
 	{
@@ -63,7 +68,29 @@ TVector<T>::TVector(int n)
 		p = new T[l];
     for (int i = 0; i < l; i++)
       p[i] = (T)0;
+    pos = _pos;
 	}
+}
+
+template <class T>
+TVector<T>::TVector(int n)
+{
+  if (n < 0)
+    throw(__NEG_SIZE);
+  else if (n == 0)
+  {
+    l = 0;
+    p = NULL;
+    pos = 0;
+  }
+  else
+  {
+    l = n;
+    p = new T[l];
+    for (int i = 0; i < l; i++)
+      p[i] = (T)0;
+    pos = 0;
+  }
 }
 
 template <class T>
@@ -73,6 +100,7 @@ TVector<T>::TVector(const TVector<T>& A)
 	p = new T[l];
 	for (int i = 0; i < l; i++)
 		p[i] = A.p[i];
+  pos = A.pos;
 }
 
 template <class T>
@@ -88,8 +116,6 @@ int TVector<T>::GetSize() const
 	return l;
 }
 
-
-
 template<class T>
 TVector<T>& TVector<T>::operator=(const TVector<T>& A)
 {
@@ -97,6 +123,7 @@ TVector<T>& TVector<T>::operator=(const TVector<T>& A)
     delete[] p;
   l = A.l;
   p = new T[l];
+  pos = A.pos;
 	for (int i = 0; i < l; i++)
 		p[i] = A.p[i];
 
@@ -125,13 +152,13 @@ bool TVector<T>::operator!=(const TVector<T>& A)
 	return false;
 }
 
-template<class T>
+template<class T>//pos?
 T& TVector<T>::operator[](int i) const
 {
-	if (i >= l || i < 0)
+	if (i - pos>= l || i -pos < 0)
 		throw(__IND_IS_OUT_OF_RANGE);
 	else
-		return p[i];
+		return p[i - pos];
 }
 
 template<class T>

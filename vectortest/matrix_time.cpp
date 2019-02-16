@@ -8,7 +8,7 @@ TMatrix<int> A4(400);
 TMatrix<int> A5(500);
 
 TEST(TMatrix, 100)
-{
+{ 
   ASSERT_NO_THROW(A1 * A1);
 }
 
