@@ -33,21 +33,23 @@ inline List<T>::List()
 template<class T>
 inline List<T>::~List()
 {
-  TLink<T>* tmpFirst = firstLink;
-  TLink<T>* tmpSecond;
+  if (firstLink != NULL) {
+    TLink<T>* tmpFirst = firstLink;
+    TLink<T>* tmpSecond;
 
-  if (len > 1)
-    tmpSecond = tmpFirst->GetNextLink();
+    if (len > 1)
+      tmpSecond = tmpFirst->GetNextLink();
 
-  for (int i = 0; i < len - 1; i++)
-  {
-    delete tmpFirst;
-    tmpFirst = tmpSecond;
-    tmpSecond = tmpFirst->GetNextLink();
+    for (int i = 0; i < len - 1; i++)
+    {
+      delete tmpFirst;
+      tmpFirst = tmpSecond;
+      tmpSecond = tmpFirst->GetNextLink();
+    }
+
+    if (len > 1)
+      delete tmpSecond;
   }
-
-  if(len > 1)
-    delete tmpSecond;
 }
 
 template<class T>

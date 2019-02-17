@@ -13,5 +13,6 @@ script:
   - ./stacktest/stacktest
   - ./multistacktest/multistacktest
   - ./listtest/listtest
+  - ./stacklisttest/stacklisttest
 notifications:
   email: false
