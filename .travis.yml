@@ -12,5 +12,6 @@ script:
   - ./queuetest/queuetest
   - ./stacktest/stacktest
   - ./multistacktest/multistacktest
+  - ./listtest/listtest
 notifications:
   email: false

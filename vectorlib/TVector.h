@@ -15,9 +15,11 @@ public:
 	TVector(const TVector<T>& A);
 	~TVector();
 	int GetSize() const; //return lenght
+  int GetPos() const;
 	bool operator != (const TVector<T>& A);
   bool operator == (const TVector<T>& A);
   TVector<T>& operator = (const TVector<T> &A);
+  T& GetValue(int i) const;
 	T& operator [](int i) const;
 	TVector<T> operator + (const TVector<T> &A);
 	TVector<T> operator - (const TVector<T>& A);
@@ -28,15 +30,15 @@ public:
 
   friend std::istream &operator>>(std::istream &in, TVector<T> &A)
   {
-    for (int i = A.l - 1; i >= 0; i--)
-      in >> A[i];
+    for (int i = 0; i < A.l; i++)
+      in >> A.GetValue(i);
     return in;
   }
 
   friend std::ostream &operator<<(std::ostream &out,const TVector<T> &A)
   {
-    for (int i = A.l - 1; i >= 0; i--)
-      out << A[i] << ' ';
+    for (int i = 0; i < A.l; i++)
+      out << A.GetValue(i) << ' ';
     return out;
   }
 };
@@ -117,6 +119,12 @@ int TVector<T>::GetSize() const
 }
 
 template<class T>
+int TVector<T>::GetPos() const
+{
+  return pos;
+}
+
+template<class T>
 TVector<T>& TVector<T>::operator=(const TVector<T>& A)
 {
   if(p != NULL)
@@ -128,6 +136,15 @@ TVector<T>& TVector<T>::operator=(const TVector<T>& A)
 		p[i] = A.p[i];
 
 	return *this;
+}
+
+template<class T>
+T & TVector<T>::GetValue(int i) const
+{
+  if (i >= l || i  < 0)
+    throw(__IND_IS_OUT_OF_RANGE);
+  else
+    return p[i];
 }
 
 template<class T>
