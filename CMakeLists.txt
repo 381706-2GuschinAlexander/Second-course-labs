@@ -25,6 +25,9 @@ set(arrlisttest arrlisttest)
 set(stacklist stacklist)
 set(stacklistlib stacklistlib)
 set(stacklisttest stacklisttest)
+set(polynom polynom)
+set(polynomlib polynomlib)
+set(polynomtest polynomtest)
 
 
 
@@ -41,7 +44,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/vectorlib
  ${CMAKE_CURRENT_SOURCE_DIR}/multistacklib
  ${CMAKE_CURRENT_SOURCE_DIR}/listlib
  ${CMAKE_CURRENT_SOURCE_DIR}/arrlistlib
- ${CMAKE_CURRENT_SOURCE_DIR}/stacklistlib)
+ ${CMAKE_CURRENT_SOURCE_DIR}/stacklistlib
+ ${CMAKE_CURRENT_SOURCE_DIR}/polynomlib)
 
 add_subdirectory(vector)
 add_subdirectory(vectorlib)
@@ -66,12 +70,6 @@ add_subdirectory(arrlisttest)
 add_subdirectory(stacklist)
 add_subdirectory(stacklistlib)
 add_subdirectory(stacklisttest)
-
-#file(GLOB hdrs "*.h*") #Добавляем в переменную hdrs все файлы с расширением .h
-#file(GLOB srcs "*.cpp") #Добавляем в переменную srcs все файлы с расширением .h
-
-
-#add_executable(${PROJECT_NAME} ${srcs} ${hdrs}) #Создаем проект с именем из переменной ${PROJECT_NAME}, в него добавляются файлы из переменных ${srcs} и ${hdrs}
-
-#add_subdirectory(lib1) #Собираем проект в поддиректории lib1
-#target_link_libraries(${PROJECT_NAME} ${MyLib1}) #Подключаем к проекту с именем ${PROJECT_NAME} библиотеку с именем ${MyLib1}
+add_subdirectory(polynom)
+add_subdirectory(polynomlib)
+add_subdirectory(polynomtest)
