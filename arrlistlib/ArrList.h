@@ -71,6 +71,8 @@ ArrList<T>::ArrList(const ArrList & A)
 template<class T>
 inline ArrList<T>::~ArrList()
 {
+  delete[] p;
+  delete[] ind;
 }
 
 template<class T>
@@ -118,10 +120,10 @@ inline T ArrList<T>::GetFirst()
 
   int tmp = firstInd;
   firstInd = ind[firstInd];
+  if (firstInd == -2)
+    firstInd = 0;
   ind[firstInd] = -2;
-
   count--;
-
   return p[tmp];
 }
 

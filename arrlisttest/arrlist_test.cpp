@@ -15,6 +15,9 @@ TEST(ArrList, can_ins_and_get_value_from_first_link)
 {
   ArrList<int> A(3);
   A.InsFirst(10);
+  A.InsFirst(9);
+  A.GetFirst();
+  A.GetFirst();
   EXPECT_EQ(A.GetFirst(), 10);
 }
 
