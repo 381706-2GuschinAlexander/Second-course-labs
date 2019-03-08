@@ -40,6 +40,7 @@ ArrList<T>::ArrList(const int _size)
     size = _size;
     p = new T[size];
     ind = new int[size];
+
     for (int i = 0; i < size; i++)
       ind[i] = -2;
   }
@@ -110,6 +111,29 @@ void ArrList<T>::InsFirst(const T & a)
 template<class T>
 inline void ArrList<T>::InsLast(const T & a)
 {
+  if (IsFull() == 1)
+    throw(1);
+
+  if (count == 0)
+    InsFirst(a);
+  else
+  {
+    for (int i = 0; i < size; i++)
+      if (ind[i] == -1)
+        ind[i] = freeInd;
+      
+    ind[freeInd] = -1;
+    p[freeInd] = a;
+
+    for (int i = 0; i < size; i++)
+      if (ind[i] == -2)
+      {
+        freeInd = i;
+        break;
+      }
+
+    count++;
+  }
 }
 
 template<class T>
@@ -122,7 +146,7 @@ inline T ArrList<T>::GetFirst()
   firstInd = ind[firstInd];
   if (firstInd == -2)
     firstInd = 0;
-  ind[firstInd] = -2;
+  ind[tmp] = -2;
   count--;
   return p[tmp];
 }
@@ -130,5 +154,24 @@ inline T ArrList<T>::GetFirst()
 template<class T>
 inline T ArrList<T>::GetLast()
 {
-  return (T)0;
+  if (IsEmpty() == 1)
+    throw(1);
+
+  if (count == 1)
+    return GetFirst();
+  else 
+  {
+    int prInd = firstInd;
+    int resInd = ind[firstInd];
+    while (ind[resInd] != -1)
+    {
+      prInd = ind[prInd];
+      resInd = ind[resInd];
+    }
+
+    ind[prInd] = -1;
+    ind[resInd] = -2;
+    count--;
+    return p[resInd];
+  }
 }
