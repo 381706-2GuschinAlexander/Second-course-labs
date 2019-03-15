@@ -116,14 +116,6 @@ TEST(Monom, can_set_powers)
   EXPECT_EQ(res, 1);
 }
 
-TEST(Monom, throw_when_set_invalid_powers)
-{
-  int p[] = { 3, 4, 5 };
-  int pPlus[] = { 4, 5 };
-  Monom A(3, 4.5, p);
-
-  ASSERT_ANY_THROW(A.SetPow(pPlus););
-}
 
 TEST(Monom, can_set_small_n)
 {
