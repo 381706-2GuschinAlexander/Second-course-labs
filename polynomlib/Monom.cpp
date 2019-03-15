@@ -71,22 +71,33 @@ int* Monom::GetPow()
 
 void Monom::SetN(int _n)
 {
-  int* tmp = new int[n];
-  for (int i = 0; i < n; i++)
-    tmp = pow;
-  delete pow;
+  if (_n < 0)
+    throw(1);
+  else if (_n == 0)
+  {
+    if(pow != NULL)
+      delete pow;
+  }
+  else 
+  {
+    int* tmp = new int[n];
+    for (int i = 0; i < n; i++)
+      tmp[i] = pow[i];
+    delete pow;
 
-  pow = new int[_n];
-  int firstInd = (n > _n ? _n : n);
-  int secondInd = (n <= _n ? _n : n);
+    pow = new int[_n];
+    int firstInd = (n > _n ? _n : n);
+    int secondInd = (n <= _n ? _n : n);
 
-  for (int i = 0; i < firstInd; i++)
-    pow[i] = tmp[i];
-  if(_n > n)
-    for (int i = firstInd; i < secondInd; i++)
-      pow[i] = 0;
+    for (int i = 0; i < firstInd; i++)
+      pow[i] = tmp[i];
+    if (_n > n)
+      for (int i = firstInd; i < secondInd; i++)
+        pow[i] = 0;
 
-  delete tmp;
+    n = _n;
+    delete tmp;
+  }
 }
 
 void Monom::SetCon(double _con)
