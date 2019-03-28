@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Stack.h"
+#include "Queue.h"
 
 int main()
 {
@@ -8,8 +8,8 @@ int main()
   std::cout << "Enter size:";
   std::cin >> size;
   std::cout << "\n";
-  TStack<int> A(size);
- 
+  TQueue<int> A(size);
+
   while (nextStep)
   {
     std::cout << "Put - 1; Get - 2, Exit - 0\n";
