@@ -18,12 +18,6 @@ TEST(Monom, throw_when_create_monom_with_negative_powers)
   ASSERT_ANY_THROW(Monom(3, 4.5, p));
 }
 
-TEST(Monom, throw_when_create_monom_with_invalid_powers)
-{
-  int p[] = {3, 4};
-  ASSERT_ANY_THROW(Monom(3, 4.5, p));
-}
-
 TEST(Monom, throw_when_create_monom_with_negative_n)
 {
   int p[] = { 3, 4, 5 };
@@ -180,3 +174,23 @@ TEST(Monom, can_eq)
   EXPECT_EQ(res, 1);
 }
 
+
+TEST(Monom, eq_when_not_eq)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3 };
+  Monom A(3, 4.5, p);
+  Monom B(1, 1, sec);
+
+  EXPECT_EQ(A == B, 0);
+}
+
+TEST(Monom, eq_when_eq)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 4, 5 };
+  Monom A(3, 4.5, p);
+  Monom B(3, 4.5, sec);
+
+  EXPECT_EQ(A == B, 1);
+}

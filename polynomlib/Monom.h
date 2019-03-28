@@ -12,9 +12,9 @@ public:
   Monom(int _n, double _con, int* _pow);
   Monom(const Monom& A);
   ~Monom();
-  int GetN();
-  double GetCon();
-  int* GetPow();
+  int GetN() const;
+  double GetCon() const;
+  int* GetPow() const;
   void SetN(int _n);
   void SetCon(double _con);
   void SetPow(int* _pow);
