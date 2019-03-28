@@ -2,10 +2,10 @@
 #include "List.h"
 #include <time.h> 
 
-#define __TIME
+
 int main()
 {
-#ifndef __TIME
+/*
   List<double> B, C, D;
   for (int i = 0; i < 1000000; i++)
     B.InsFirst(1.0);
@@ -28,7 +28,7 @@ int main()
   D.InsCustom(1.12, 3000000 - 1);
   fTimeStop = clock() / (float)CLOCKS_PER_SEC;
   std::cout << "time: " << fTimeStop - fTimeStart << "\n";
-#endif
+*/
   List<double> A;
   std::cout << "Insert on first pos 1.1\n";
   A.InsFirst(1.1);
