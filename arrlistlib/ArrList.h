@@ -13,6 +13,7 @@ protected:
   int freeInd;
   int firstInd;
 public:
+  int GetLen();
   ArrList(const int _size = 0);
   ArrList(const ArrList& A);
   ~ArrList();
@@ -23,6 +24,12 @@ public:
   T GetFirst();
   T GetLast();
 };
+
+template<class T>
+int ArrList<T>::GetLen()
+{
+  return count;
+}
 
 template<class T>
 ArrList<T>::ArrList(const int _size)
