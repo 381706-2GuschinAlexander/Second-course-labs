@@ -197,6 +197,11 @@ bool Monom::operator==(const Monom& A)
   return true;
 }
 
+bool Monom::operator!=(const Monom & A)
+{
+  return !(*this == A);
+}
+
 bool Monom::operator>(const Monom & A)
 {
   if (n != A.n)

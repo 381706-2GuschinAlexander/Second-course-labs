@@ -53,7 +53,7 @@ inline List<T>::~List()
 }
 
 template<class T>
-inline T List<T>::GetValue(int pos) const
+T List<T>::GetValue(int pos) const
 {
   if (pos < 0 || pos >= len)
     throw(__IND_IS_OUT_OF_RANGE);
