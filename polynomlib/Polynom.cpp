@@ -13,14 +13,18 @@ Polynom::Polynom(const Polynom& A)
 
 Polynom::Polynom(const List<Monom>& A)
 {
-  //need protection
   for (int i = 0; i < A.GetLen(); i++)
-    InsLast(A.GetValue(i));
+    *this += A.GetValue(i);
 }
 
 Polynom & Polynom::operator=(const Polynom& A)
 {
-  //
+  while(A.GetLen() != 0)
+    this->DelFirst();
+
+  for (int i = 0; i < A.GetLen(); i++)
+    InsLast(A.GetValue(i));
+
   return *this;
 }
 
