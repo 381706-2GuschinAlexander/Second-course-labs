@@ -35,20 +35,38 @@ Monom Polynom::operator[](int _pos)
 
 Polynom Polynom::operator*(const Polynom& A)
 {
-  //
-  return Polynom();
+  Polynom res;
+  int len1 = this->GetLen();
+  int len2 = A.GetLen();
+
+  for(int i = 0; i < len1; i++)
+    for (int j = 0; i < len2; j++)
+      res += this->GetValue(i) * A.GetValue(j);
+    
+
+  return res;
 }
 
 Polynom Polynom::operator+(const Polynom& A)
 {
-  //
-  return Polynom();
+  Polynom res(*this);
+  for (int i = 0; i < A.GetLen(); i++)
+    res += A.GetValue(i);
+
+  return res;
 }
 
 Polynom Polynom::operator-(const Polynom& A)
 {
-  //
-  return Polynom();
+  Polynom res(*this);
+  for (int i = 0; i < A.GetLen(); i++)
+  {
+    Monom tmp(A.GetValue(i));
+    tmp.SetCon(-tmp.GetCon());
+    res += tmp;
+  }
+
+  return res;
 }
 
 Polynom& Polynom::operator+=(const Monom & A)
@@ -66,7 +84,8 @@ Polynom& Polynom::operator+=(const Monom & A)
     {
       Monom tmp = GetValue(i);
       DelCustom(i);
-      InsCustom(tmp + A, i);
+      if ((tmp + A).GetCon() != 0)
+        InsCustom(tmp + A, i);
       return *this;
     }
   }
