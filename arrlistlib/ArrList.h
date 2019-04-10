@@ -13,10 +13,10 @@ protected:
   int freeInd;
   int firstInd;
 public:
-  int GetLen();
   ArrList(const int _size = 0);
   ArrList(const ArrList& A);
   ~ArrList();
+  int GetLen();
   bool IsFull();
   bool IsEmpty();
   void InsFirst(const T& a);
@@ -159,7 +159,7 @@ inline T ArrList<T>::GetFirst()
 }
 
 template<class T>
-inline T ArrList<T>::GetLast()
+T ArrList<T>::GetLast()
 {
   if (IsEmpty() == 1)
     throw(__STACK_IS_EMPTY);

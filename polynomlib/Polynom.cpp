@@ -19,8 +19,8 @@ Polynom::Polynom(const List<Monom>& A)
 
 Polynom & Polynom::operator=(const Polynom& A)
 {
-  while(A.GetLen() != 0)
-    this->DelFirst();
+  while(GetLen() != 0)
+    DelFirst();
 
   for (int i = 0; i < A.GetLen(); i++)
     InsLast(A.GetValue(i));
@@ -40,9 +40,11 @@ Polynom Polynom::operator*(const Polynom& A)
   int len2 = A.GetLen();
 
   for(int i = 0; i < len1; i++)
-    for (int j = 0; i < len2; j++)
-      res += this->GetValue(i) * A.GetValue(j);
-    
+    for (int j = 0; j < len2; j++)
+    {
+      Monom tmp = (this->GetValue(i) * A.GetValue(j));
+      res += tmp;
+    }
 
   return res;
 }
@@ -74,18 +76,20 @@ Polynom& Polynom::operator+=(const Monom & A)
   for (int i = 0; i < this->len; i++)
   {
     bool isComp = 1;
-    if ((*this)[i].GetN() != A.GetN())
-      isComp = 0;
-    for (int j = 0; j < A.GetN() && isComp; j++)
-      if ((((*this)[i]).GetPow())[j] != (A.GetPow())[j])
-        isComp = 0;
+    
 
-    if (isComp)
+    Monom tmp = GetValue(i);
+    tmp.SetCon(-tmp.GetCon());
+    if (tmp == A)
     {
-      Monom tmp = GetValue(i);
       DelCustom(i);
-      if ((tmp + A).GetCon() != 0)
-        InsCustom(tmp + A, i);
+      return *this;
+    }
+    tmp.SetCon(-tmp.GetCon());
+    if (tmp == A)
+    {
+      DelCustom(i);
+      InsCustom(tmp + A, i);
       return *this;
     }
   }

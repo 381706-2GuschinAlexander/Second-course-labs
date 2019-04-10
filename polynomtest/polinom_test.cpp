@@ -198,3 +198,48 @@ TEST(Polynom, can_minus_with_polynom)
 
   EXPECT_EQ(flag, 1);
 }
+
+TEST(Polynom, can_eq_with_polynom)
+{
+  int p[] = { 3, 4, 5 };
+  Monom B(3, 4.5, p);
+  
+  Polynom A, C;
+ 
+  A += B;
+  C = A;
+
+  bool flag = 1;
+  if (A.GetValue(0) != C.GetValue(0))
+    flag = 0;
+
+  EXPECT_EQ(flag, 1);
+}
+
+TEST(Polynom, can_multy_with_polynom)
+{
+  int p1[] = { 3, 4, 5 };
+  Monom Mon1(3, 4.5, p1);
+
+  int p2[] = { 3, 4};
+  Monom Mon2(2, 3.5, p2);
+
+  Polynom A, B;
+
+  B += Mon1;
+  B += Mon2;
+
+  A = B * B;
+  
+  bool flag = 1;
+  Monom tmpMon(Mon1 * Mon2);
+  tmpMon.SetCon(2 * tmpMon.GetCon());
+
+  if (A[0] != Mon1 * Mon1)
+    flag = 0;
+  if (A[1] != tmpMon)
+    flag = 0;
+  if (A[2] != Mon2 * Mon2)
+    flag = 0;
+  EXPECT_EQ(flag, 1);
+}

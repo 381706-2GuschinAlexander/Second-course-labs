@@ -117,6 +117,10 @@ void List<T>::InsLast(const T & a)
   else
     firstLink = tmp;
 
+  if (len == 1)
+    firstLink->setP(tmp);
+  
+
   lastLink = tmp;
   len++;
 }
@@ -136,7 +140,7 @@ inline void List<T>::DelFirst()
 template<class T>
 inline void List<T>::DelCustom(int pos)
 {
-  if (pos < 0 || pos >= len)
+  if (pos < 0 || pos > len)
     throw(__IND_IS_OUT_OF_RANGE);
 
   if (pos == 0)

@@ -173,11 +173,16 @@ Monom Monom::operator*(const Monom& A)
 
   Monom res;
   if (flag == true)
+  {
     res = A;
+    res.con *= this->con;
+  }
   else
+  {
     res = *this;
+    res.con *= A.con;
+  }
 
-  res.con *= A.con;
   for (int i = 0; i < minN; i++)
     res.pow[i] += A.pow[i];
 
