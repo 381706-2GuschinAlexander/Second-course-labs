@@ -129,7 +129,7 @@ template<class T>
 inline void List<T>::DelFirst()
 {
   if (IsEmpty() == 1)
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
 
   TLink<T>* tmp = firstLink;
   firstLink = firstLink->GetNextLink();

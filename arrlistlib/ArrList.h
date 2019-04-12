@@ -99,7 +99,7 @@ template<class T>
 void ArrList<T>::InsFirst(const T & a)
 {
   if (IsFull() == 1)
-    throw(__STACK_IS_FULL);
+    throw(__SOD_IS_FULL);
 
   p[freeInd] = a;
   ind[freeInd] = firstInd;
@@ -119,7 +119,7 @@ template<class T>
 inline void ArrList<T>::InsLast(const T & a)
 {
   if (IsFull() == 1)
-    throw(__STACK_IS_FULL);
+    throw(__SOD_IS_FULL);
 
   if (count == 0)
     InsFirst(a);
@@ -147,7 +147,7 @@ template<class T>
 inline T ArrList<T>::GetFirst()
 {
   if (IsEmpty() == 1)
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
 
   int tmp = firstInd;
   firstInd = ind[firstInd];
@@ -162,7 +162,7 @@ template<class T>
 T ArrList<T>::GetLast()
 {
   if (IsEmpty() == 1)
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
 
   if (count == 1)
     return GetFirst();

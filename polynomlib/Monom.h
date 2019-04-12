@@ -26,5 +26,12 @@ public:
   bool operator!=(const Monom& A);
   bool operator>(const Monom& A);
   bool operator<(const Monom& A);
-  //>> <<
+  friend std::ostream& operator<<(std::ostream& os, const Monom& A)
+  {
+    os << A.con << '*';
+    for (int i = 0; i < A.n - 1; i++)
+      os << "x" << i << "^" << A.pow[i] << '*';
+    os << "x" << A.n - 1 << "^" << A.pow[A.n - 1];
+    return os;
+  }
 };

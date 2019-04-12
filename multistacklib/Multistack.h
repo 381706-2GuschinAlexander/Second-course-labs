@@ -152,7 +152,7 @@ void TMulStack<T>::Put(T a, int _i)
 {
   if (IsFull(_i) == true)
     if (Resize(_i) == false)
-      throw(__STACK_IS_FULL);
+      throw(__SOD_IS_FULL);
 
   stacks[_i]->Put(a);
 }
@@ -161,7 +161,7 @@ template<class T>
 T TMulStack<T>::Get(int _i)
 {
   if (IsEmpty(_i) == true)
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
  
   return stacks[_i]->Get();
 }

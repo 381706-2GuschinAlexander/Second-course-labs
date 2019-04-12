@@ -30,7 +30,7 @@ template<class T>
 void TQueue<T>::Put(const T s)
 {
   if (this->IsFull())
-    throw(__STACK_IS_FULL);
+    throw(__SOD_IS_FULL);
 
   if (this->size > st + this->pos)
     this->p[st + this->pos] = s;
@@ -44,7 +44,7 @@ template<class T>
 T TQueue<T>::Get()
 {
   if (this->IsEmpty())
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
 
   T temp = this->p[st++];
 
@@ -60,7 +60,7 @@ template<class T>
 T TQueue<T>::Check()
 {
   if (this->IsEmpty())
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
 
   return this->p[st];
 }

@@ -75,21 +75,22 @@ Polynom& Polynom::operator+=(const Monom & A)
 {
   for (int i = 0; i < this->len; i++)
   {
-    bool isComp = 1;
-    
-
+    bool isComp = 0;
     Monom tmp = GetValue(i);
-    tmp.SetCon(-tmp.GetCon());
-    if (tmp == A)
+    if (tmp.GetN() == A.GetN())
     {
-      DelCustom(i);
-      return *this;
+      isComp = 1;
+      for (int i = 0; i < tmp.GetN(); i++)
+        if (tmp.GetPow()[i] != A.GetPow()[i])
+          isComp = 0;
     }
-    tmp.SetCon(-tmp.GetCon());
-    if (tmp == A)
+    
+    if (isComp)
     {
       DelCustom(i);
-      InsCustom(tmp + A, i);
+      if (tmp.GetCon() != -A.GetCon())
+        InsCustom(tmp + A, i);
+
       return *this;
     }
   }

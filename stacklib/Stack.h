@@ -93,7 +93,7 @@ template <class T>
 void TStack<T>::Put(const T s)
 {
   if (IsFull())
-    throw(__STACK_IS_FULL);
+    throw(__SOD_IS_FULL);
   p[pos++] = s;
 }
 
@@ -101,7 +101,7 @@ template <class T>
 T TStack<T>::Get()
 {
   if (IsEmpty())
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
   return p[--pos];
 }
 
@@ -109,6 +109,6 @@ template<class T>
 T TStack<T>::Check()
 {
   if (IsEmpty())
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
   return p[pos - 1];
 }
