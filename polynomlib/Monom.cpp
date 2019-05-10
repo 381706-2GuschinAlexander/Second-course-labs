@@ -96,7 +96,7 @@ void Monom::SetN(int _n)
         pow[i] = 0;
 
     n = _n;
-    delete tmp;
+    delete[] tmp;
   }
 }
 

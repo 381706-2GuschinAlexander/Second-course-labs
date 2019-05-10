@@ -31,7 +31,12 @@ set(polynomtest polynomtest)
 set(polish polish)
 set(polishlib polishlib)
 set(polishtest polishtest)
-
+set(text text)
+set(textlib textlib)
+set(texttest texttest)
+set(plex plex)
+set(plexlib plexlib)
+set(plextest plextest)
 
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Configs" FORCE) #Создается переменная CMAKE_CONFIGURATION_TYPES со значением "Debug;Release" и меткой/разделом Configs, переменная сохраниется в специальном файле доступном из всех файлов,
 if(NOT CMAKE_BUILD_TYPE) # проверка имеющихся у компилятора вариантов сборки
@@ -48,7 +53,10 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/vectorlib
  ${CMAKE_CURRENT_SOURCE_DIR}/arrlistlib
  ${CMAKE_CURRENT_SOURCE_DIR}/stacklistlib
  ${CMAKE_CURRENT_SOURCE_DIR}/polynomlib
- ${CMAKE_CURRENT_SOURCE_DIR}/polishlib)
+ ${CMAKE_CURRENT_SOURCE_DIR}/polishlib
+ ${CMAKE_CURRENT_SOURCE_DIR}/textlib
+ ${CMAKE_CURRENT_SOURCE_DIR}/plexlib
+ )
 
 add_subdirectory(vector)
 add_subdirectory(vectorlib)
@@ -79,3 +87,9 @@ add_subdirectory(polynomtest)
 add_subdirectory(polish)
 add_subdirectory(polishlib)
 add_subdirectory(polishtest)
+add_subdirectory(text)
+add_subdirectory(textlib)
+add_subdirectory(texttest)
+add_subdirectory(plex)
+add_subdirectory(plexlib)
+add_subdirectory(plextest)

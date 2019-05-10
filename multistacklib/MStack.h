@@ -10,6 +10,11 @@ public:
     this->size = _size;
   }
 
+	void SetLen(int _size)
+	{
+		this->size = _size;
+	}
+
   MStack(int _size) :TStack<T>(_size)
   {
 
@@ -20,7 +25,12 @@ public:
 
   }
 
-  void SetPos(int _top)
+	T* GetMem()
+	{
+		return this->p;
+	}
+
+	void SetPos(int _top)
   {
     this->pos =_top;
   }

@@ -128,5 +128,5 @@ TEST(Multystack, resize_with_another_stack)
 TEST(Multystack, calc_free_in_empty_stack)
 {
   TMulStack<int> A(3, 9);
-  EXPECT_EQ(A.CalcFree(0), 3);
+  EXPECT_EQ(A.CalcFree(), 9);
 }
