@@ -14,6 +14,9 @@ public:
   ~THElem();
   T GetValue();
   mString GetKey();
+	THElem<T>& operator=(const THElem& elem);
+	bool operator==(const THElem& elem);
+	bool operator!=(const THElem& elem);
   void SetKey(const mString& _key);
   void SetValue(const T& _value);
 };
@@ -28,8 +31,8 @@ THElem<T>::THElem(const mString& _key, const T& _value)
 template<class T>
 THElem<T>::THElem()
 {
-  key = NULL;
-  value = NULL;
+  key = "";
+  value = 0;
 }
 
 template<class T>
@@ -48,6 +51,36 @@ template<class T>
 mString THElem<T>::GetKey()
 {
   return key;
+}
+
+template<class T>
+THElem<T> & THElem<T>::operator=(const THElem & elem)
+{
+	key = elem.key;
+	value = elem.value;
+	return *this;
+}
+
+template<class T>
+bool THElem<T>::operator==(const THElem & elem)
+{
+	if (key != elem.key)
+		return false;
+	if (value != elem.value)
+		return false;
+
+	return true;
+}
+
+template<class T>
+bool THElem<T>::operator!=(const THElem & elem)
+{
+	if (key == elem.key)
+		return false;
+	if (value == elem.value)
+		return false;
+
+	return true;
 }
 
 template<class T>

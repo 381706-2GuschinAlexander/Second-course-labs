@@ -27,6 +27,14 @@ mString::mString()
   str = NULL;
 }
 
+mString::~mString()
+{
+	if (str != NULL)
+		delete[] str;
+}
+
+
+
 mString & mString::operator=(const mString & _string)
 {
   if (str != NULL)
@@ -46,22 +54,92 @@ mString & mString::operator=(char * _cstr)
     delete[] str;
 
   count = strlen(_cstr);
-  if (count < 1)
-    throw(1);
+  str = NULL;
+	if (count > 0)
+		str = new char[count];
 
-  str = new char[count];
   for (int i = 0; i < count; i++)
     str[i] = _cstr[i];
 
   return *this;
 }
 
-char * mString::GetCStr()
+bool mString::operator==(const mString & _string)
+{
+	if (count != _string.count)
+		return false;
+
+	for (int i = 0; i < count; i++)
+		if (str[i] != _string.str[i])
+			return false;
+
+	return true;
+}
+
+bool mString::operator!=(const mString & _string)
+{
+	if (count != _string.count)
+		return true;
+
+	for (int i = 0; i < count; i++)
+		if (str[i] != _string.str[i])
+			return true;
+
+	return false;
+}
+
+bool mString::operator<=(const mString & _string)
+{
+	unsigned long long sum1 = 0;
+	unsigned long long sum2 = 0;
+
+	for (int i = 0; i < count; i++)
+	{
+		sum1 *= 26;
+		sum1 += (str[i] - 'a' + 1);
+	}
+
+	for (int i = 0; i < _string.count; i++)
+	{
+		sum2 *= 26;
+		sum2 += (_string.str[i] - 'a' + 1);
+	}
+
+	if (sum1 <= sum2)
+		return true;
+	else
+		return false;
+}
+
+bool mString::operator>=(const mString & _string)
+{
+	unsigned long long sum1 = 0;
+	unsigned long long sum2 = 0;
+
+	for (int i = 0; i < count; i++)
+	{
+		sum1 *= 26;
+		sum1 += (str[i] - 'a' + 1);
+	}
+
+	for (int i = 0; i < _string.count; i++)
+	{
+		sum2 *= 26;
+		sum2 += (_string.str[i] - 'a' + 1);
+	}
+
+	if (sum1 >= sum2)
+		return true;
+	else
+		return false;
+}
+
+char * mString::GetCStr() const
 {
   return str;
 }
 
-int mString::GetCount()
+int mString::GetCount() const
 {
   return count;
 }
