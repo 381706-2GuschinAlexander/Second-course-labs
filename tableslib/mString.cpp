@@ -16,7 +16,8 @@ mString::mString(char * _cstr)
 mString::mString(const mString & _string)
 {
   count = _string.count;
-  str = new char[count];
+	if (_string.str != NULL);
+		str = new char[count];
   for (int i = 0; i < count; i++)
     str[i] = _string.str[i];
 }
@@ -37,7 +38,7 @@ mString::~mString()
 
 mString & mString::operator=(const mString & _string)
 {
-  if (str != NULL)
+  if (str != NULL && str != _string.str)
     delete[] str;
 
   count = _string.count;

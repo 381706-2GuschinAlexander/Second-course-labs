@@ -11,11 +11,14 @@ protected:
 	int m;
 	THElem<T> exemp;
   THElem<T>* pElem;
+	int GetHash(const mString& elem);
 public:
+	THTable(const int _size = 10);
+	THTable(const THTable<T>& table);
 	void AddElem(THElem<T>& elem);
-	T& Find(const mString& key);
-  THTable(const int _size = 10);
-  int GetHash(const mString& elem);
+	THElem<T>& Find(const mString& key);
+	void DeleteElem(const mString& key);
+	int GetCount();
 
 };
 
@@ -36,20 +39,29 @@ void THTable<T>::AddElem(THElem<T>& elem)
 }
 
 template<class T>
-T & THTable<T>::Find(const mString & key)
+THElem<T> & THTable<T>::Find(const mString & key)
 {
-	int i = GetHash(key) / size;
+	int i = GetHash(key) % size;
 	int howLong = 0;
-	while (pElem[i].GetKey() != key && howLong < count)
+	while ((pElem[i]).GetKey() != key && howLong < count)
 	{
-		count++;
+		if (pElem[i] == exemp)
+			break;
 		i = (i + m) % size;
+		howLong++;
 	}
 
-	if (howLong >= count)
-		throw (1);
+	if (pElem[i] == exemp || howLong >= count)
+		throw(1);
 	
 	return pElem[i];
+}
+
+template<class T>
+void THTable<T>::DeleteElem(const mString& key)
+{
+	Find(key) = exemp;
+	count--;
 }
 
 template<class T>
@@ -64,9 +76,23 @@ THTable<T>::THTable(const int _size)
   if (_size != 0)
     pElem = new THElem<T>[_size];
 
+	for (int i = 0; i < size; i++)
+		pElem[i] = exemp;
+
 	m = 2;
 	while (size % m == 0)
 		m++;
+}
+
+template<class T>
+THTable<T>::THTable(const THTable<T>& table)
+{
+	size = table.size;
+	count = table.count;
+	m = table.m;
+
+	for (int i = 0; i < size; i++)
+		pElem[i] = table.pElem[i];
 }
 
 template<class T>
@@ -81,4 +107,10 @@ int THTable<T>::GetHash(const mString& elem)
 	}
 
 	return sum;
+}
+
+template<class T>
+inline int THTable<T>::GetCount()
+{
+	return count;
 }

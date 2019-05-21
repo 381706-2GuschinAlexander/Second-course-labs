@@ -97,3 +97,4 @@ TEST(mString, can_get_count)
 	mString A(a);
 	EXPECT_EQ(A.GetCount(), 3);
 }
+

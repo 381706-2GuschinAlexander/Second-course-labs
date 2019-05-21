@@ -11,9 +11,10 @@ protected:
 public:
   THElem(const mString& _key, const T& _value);
   THElem();
+	THElem(const THElem& elem);
   ~THElem();
-  T GetValue();
-  mString GetKey();
+  T& GetValue();
+  mString& GetKey();
 	THElem<T>& operator=(const THElem& elem);
 	bool operator==(const THElem& elem);
 	bool operator!=(const THElem& elem);
@@ -31,8 +32,13 @@ THElem<T>::THElem(const mString& _key, const T& _value)
 template<class T>
 THElem<T>::THElem()
 {
-  key = "";
-  value = 0;
+}
+
+template<class T>
+THElem<T>::THElem(const THElem & elem)
+{
+	value = elem.value;
+	key = elem.key;
 }
 
 template<class T>
@@ -42,13 +48,13 @@ THElem<T>::~THElem()
 }
 
 template<class T>
-T THElem<T>::GetValue()
+T& THElem<T>::GetValue()
 {
   return value;
 }
 
 template<class T>
-mString THElem<T>::GetKey()
+mString& THElem<T>::GetKey()
 {
   return key;
 }
