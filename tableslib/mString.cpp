@@ -2,22 +2,25 @@
 #include <iostream>
 #include <cstring>
 
+
 mString::mString(char * _cstr)
 {
   count = strlen(_cstr);
   if (count < 1)
-    throw(1);
+    throw(__NEG_SIZE);
 
-  str = new char[count];
+  str = new char[count + 1];
   for (int i = 0; i < count; i++)
     str[i] = _cstr[i];
+
+	str[count] = '\0';
 }
 
 mString::mString(const mString & _string)
 {
   count = _string.count;
 	if (_string.str != NULL);
-		str = new char[count];
+		str = new char[count + 1];
   for (int i = 0; i < count; i++)
     str[i] = _string.str[i];
 }
@@ -42,10 +45,10 @@ mString & mString::operator=(const mString & _string)
     delete[] str;
 
   count = _string.count;
-  str = new char[count];
+  str = new char[count + 1];
   for (int i = 0; i < count; i++)
     str[i] = _string.str[i];
-
+	str[count] = '\0';
   return *this;
 }
 
@@ -57,11 +60,12 @@ mString & mString::operator=(char * _cstr)
   count = strlen(_cstr);
   str = NULL;
 	if (count > 0)
-		str = new char[count];
+		str = new char[count + 1];
 
   for (int i = 0; i < count; i++)
     str[i] = _cstr[i];
 
+	str[count] = '\0';
   return *this;
 }
 

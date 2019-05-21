@@ -1,5 +1,5 @@
 #pragma once
-
+#include "exception.h"
 class mString
 {
 protected:

@@ -10,6 +10,7 @@
 #define __INVALID_SIZE_CTL "Invalid size compare to length"
 #define __DIFF_VALUE "Attempt to interact with objects with different value"
 #define __UNEXPECTED "Unexpected throw"
+#define __MISSING_VALUE "Value is missing" 
 
 #endif // !EXP
 

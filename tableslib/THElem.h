@@ -20,6 +20,11 @@ public:
 	bool operator!=(const THElem& elem);
   void SetKey(const mString& _key);
   void SetValue(const T& _value);
+	friend std::ostream& operator<<(std::ostream& out, THElem<T>& elem)
+	{
+		out << elem.GetKey().GetCStr() << " | " << elem.GetValue();
+		return out;
+	}
 };
 
 template<class T>
