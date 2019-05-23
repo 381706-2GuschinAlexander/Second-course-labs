@@ -15,6 +15,7 @@ protected:
 public:
 	THTable(const int _size = 10);
 	THTable(const THTable<T>& table);
+	~THTable();
 	void AddElem(THElem<T>& elem);
 	void AddElem(const mString key ,const T & value);
 	T& Find(const mString& key);
@@ -134,6 +135,12 @@ THTable<T>::THTable(const THTable<T>& table)
 
 	for (int i = 0; i < size; i++)
 		pElem[i] = table.pElem[i];
+}
+
+template<class T>
+THTable<T>::~THTable()
+{
+	delete[] pElem;
 }
 
 template<class T>
