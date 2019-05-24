@@ -53,7 +53,7 @@ inline List<T>::~List()
 }
 
 template<class T>
-inline T List<T>::GetValue(int pos) const
+T List<T>::GetValue(int pos) const
 {
   if (pos < 0 || pos >= len)
     throw(__IND_IS_OUT_OF_RANGE);
@@ -117,6 +117,10 @@ void List<T>::InsLast(const T & a)
   else
     firstLink = tmp;
 
+  if (len == 1)
+    firstLink->setP(tmp);
+  
+
   lastLink = tmp;
   len++;
 }
@@ -125,7 +129,7 @@ template<class T>
 inline void List<T>::DelFirst()
 {
   if (IsEmpty() == 1)
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
 
   TLink<T>* tmp = firstLink;
   firstLink = firstLink->GetNextLink();
@@ -136,7 +140,7 @@ inline void List<T>::DelFirst()
 template<class T>
 inline void List<T>::DelCustom(int pos)
 {
-  if (pos < 0 || pos >= len)
+  if (pos < 0 || pos > len)
     throw(__IND_IS_OUT_OF_RANGE);
 
   if (pos == 0)

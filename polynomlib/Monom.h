@@ -4,9 +4,9 @@
 class Monom
 {
 protected:
-  int n;
-  double con;
-  int* pow;
+  int n; //length of powers
+  double con;//const
+  int* pow;//pointer on powers
 public:
   Monom();
   Monom(int _n, double _con, int* _pow);
@@ -23,7 +23,15 @@ public:
   Monom operator-(const Monom& A);
   Monom operator*(const Monom& A);
   bool operator==(const Monom& A);
+  bool operator!=(const Monom& A);
   bool operator>(const Monom& A);
   bool operator<(const Monom& A);
-  //>> <<
+  friend std::ostream& operator<<(std::ostream& os, const Monom& A)
+  {
+    os << A.con << '*';
+    for (int i = 0; i < A.n - 1; i++)
+      os << "x" << i << "^" << A.pow[i] << '*';
+    os << "x" << A.n - 1 << "^" << A.pow[A.n - 1];
+    return os;
+  }
 };

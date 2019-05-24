@@ -2,7 +2,7 @@
 #include "MStack.h"
 
 template <class T>
-class TMulStack : public MStack<T>
+class TMulStack 
 {
 protected:
   int count;
@@ -22,19 +22,71 @@ public:
   int GetSize(int i);
   bool IsEmpty(int _i);
   bool IsFull(int _i);
-  int CalcFree(int _i);
+  int CalcFree();
 };
 
 template<class T>
-int TMulStack<T>::CalcFree(int _i)
+int TMulStack<T>::CalcFree()
 {
-  return (stacks[_i]->GetSize() - stacks[_i]->GetCount());
+	int res = 0;
+	for(int i = 0; i < count; i++)
+		res += (stacks[i]->GetSize() - stacks[i]->GetCount());
+	return res;
 }
 
 template<class T>
 bool TMulStack<T>::Resize(int _i)
 {
-  for (int i = 0; i < count; i++)
+	int in, j, k, n;
+	int FreeMemSize = CalcFree();
+
+	if (FreeMemSize == 0)
+		return false;
+
+	resizeCount++;
+	ind[0] = gstack;
+	for (int i = 1; i < count; i++)
+	{
+		if (_i + 1 == i)
+			ind[i] = ind[i - 1] + stacks[i - 1]->GetCount() + FreeMemSize / count + FreeMemSize % count;
+		else
+			ind[i] = ind[i - 1] + stacks[i - 1]->GetCount() + FreeMemSize / count;
+	}
+
+	for (in = 0; in < count; in++)
+		if (ind[in] < stacks[in]->GetMem())
+		{
+			for (j = 0; j < stacks[in]->GetCount(); j++)
+				ind[in][j] = (stacks[in]->GetMem())[j];
+			stacks[in]->SetMem(ind[in], ind[in + 1] - ind[in]);
+		}
+		else if (ind[in] > stacks[in]->GetMem())
+		{
+			k = in;
+			if (k < count - 1)
+				for (k; ind[k + 1] > stacks[k + 1]->GetMem(); k++)
+					if (k == count - 2)
+						break;
+			for (n = k; n >= in; n--)
+			{
+				for (j = stacks[n]->GetCount() - 1; j >= 0; j--)
+					ind[n][j] = (stacks[n]->GetMem())[j];
+				stacks[n]->SetMem(ind[n], ind[n + 1] - ind[n]);
+			}
+		}
+		else
+			stacks[in]->SetMem(ind[in], ind[in + 1] - ind[in]);
+	for (int i = 0; i < count - 1; i++)
+	{
+		stacks[i]->SetLen(ind[i + 1] - ind[i]);
+		lenS[i] = stacks[i]->GetSize();
+	}
+	stacks[count - 1]->SetLen((gstack + l) - ind[count - 1]);
+	lenS[count - 1] = stacks[count - 1]->GetSize();
+
+
+	return true;
+  /*for (int i = 0; i < count; i++)
   {
     if (CalcFree(i) > 0)
     {
@@ -64,7 +116,8 @@ bool TMulStack<T>::Resize(int _i)
       return true;
     }
   }
-  return false;
+  return false;*/
+	
 }
 
 template<class T>
@@ -152,7 +205,7 @@ void TMulStack<T>::Put(T a, int _i)
 {
   if (IsFull(_i) == true)
     if (Resize(_i) == false)
-      throw(__STACK_IS_FULL);
+      throw(__SOD_IS_FULL);
 
   stacks[_i]->Put(a);
 }
@@ -161,7 +214,7 @@ template<class T>
 T TMulStack<T>::Get(int _i)
 {
   if (IsEmpty(_i) == true)
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
  
   return stacks[_i]->Get();
 }

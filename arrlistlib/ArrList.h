@@ -16,6 +16,7 @@ public:
   ArrList(const int _size = 0);
   ArrList(const ArrList& A);
   ~ArrList();
+  int GetLen();
   bool IsFull();
   bool IsEmpty();
   void InsFirst(const T& a);
@@ -23,6 +24,12 @@ public:
   T GetFirst();
   T GetLast();
 };
+
+template<class T>
+int ArrList<T>::GetLen()
+{
+  return count;
+}
 
 template<class T>
 ArrList<T>::ArrList(const int _size)
@@ -92,7 +99,7 @@ template<class T>
 void ArrList<T>::InsFirst(const T & a)
 {
   if (IsFull() == 1)
-    throw(__STACK_IS_FULL);
+    throw(__SOD_IS_FULL);
 
   p[freeInd] = a;
   ind[freeInd] = firstInd;
@@ -112,7 +119,7 @@ template<class T>
 inline void ArrList<T>::InsLast(const T & a)
 {
   if (IsFull() == 1)
-    throw(__STACK_IS_FULL);
+    throw(__SOD_IS_FULL);
 
   if (count == 0)
     InsFirst(a);
@@ -140,7 +147,7 @@ template<class T>
 inline T ArrList<T>::GetFirst()
 {
   if (IsEmpty() == 1)
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
 
   int tmp = firstInd;
   firstInd = ind[firstInd];
@@ -152,10 +159,10 @@ inline T ArrList<T>::GetFirst()
 }
 
 template<class T>
-inline T ArrList<T>::GetLast()
+T ArrList<T>::GetLast()
 {
   if (IsEmpty() == 1)
-    throw(__STACK_IS_EMPTY);
+    throw(__SOD_IS_EMPTY);
 
   if (count == 1)
     return GetFirst();

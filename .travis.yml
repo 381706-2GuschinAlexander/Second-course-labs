@@ -16,5 +16,6 @@ script:
   - ./stacklisttest/stacklisttest
   - ./arrlisttest/arrlisttest
   - ./polynomtest/polynomtest
+  - ./tablestest/tablestest
 notifications:
   email: false

@@ -194,3 +194,115 @@ TEST(Monom, eq_when_eq)
 
   EXPECT_EQ(A == B, 1);
 }
+
+TEST(Monom, comparison_B_when_first_bigger_then_second)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 4, 5 };
+  Monom A(3, 4.5, p);
+  Monom B(3, 3.5, sec);
+
+  EXPECT_EQ(A > B, 1);
+}
+
+TEST(Monom, comparison_B_when_first_smaller_then_second)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 4, 5 };
+  Monom A(3, 2.5, p);
+  Monom B(3, 3.5, sec);
+
+  EXPECT_EQ(A > B, 0);
+}
+
+TEST(Monom, comparison_S_when_first_bigger_then_second)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 4, 5 };
+  Monom A(3, 4.5, p);
+  Monom B(3, 3.5, sec);
+
+  EXPECT_EQ(A < B, 0);
+}
+
+TEST(Monom, comparison_S_when_first_smaller_then_second)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 4, 5 };
+  Monom A(3, 2.5, p);
+  Monom B(3, 3.5, sec);
+
+  EXPECT_EQ(A < B, 1);
+}
+
+TEST(Monom, throw_when_comparison_with_different_powers)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 5 };
+  Monom A(3, 4.5, p);
+  Monom B(2, 3.5, sec);
+
+  ASSERT_ANY_THROW(A < B);
+}
+
+TEST(Monom, throw_when_plus_with_different_length)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 5 };
+  Monom A(3, 4.5, p);
+  Monom B(2, 3.5, sec);
+
+  ASSERT_ANY_THROW(A + B);
+}
+
+TEST(Monom, throw_when_minus_with_different_length)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 5 };
+  Monom A(3, 4.5, p);
+  Monom B(2, 3.5, sec);
+
+  ASSERT_ANY_THROW(A - B);
+}
+
+TEST(Monom, can_plus)
+{
+  int p[] = { 3, 4, 5 };
+  Monom A(3, 4.5, p);
+  Monom B(3, 3.5, p);
+
+  EXPECT_EQ((A + B).GetCon(),8);
+}
+
+TEST(Monom, can_minus)
+{
+  int p[] = { 3, 4, 5 };
+  Monom A(3, 4.5, p);
+  Monom B(3, 3.5, p);
+
+  EXPECT_EQ((A - B).GetCon(), 1);
+}
+
+TEST(Monom, can_multy_small_with_bigger)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 5 };
+  int res[] = { 6,9,5 };
+  Monom A(3, 4, p);
+  Monom B(2, 3, sec);
+  Monom resMonom(3, 12, res);
+  bool flag = (B*A == resMonom ? 1 : 0);
+  EXPECT_EQ(flag, 1);
+}
+
+TEST(Monom, can_multy_bigger_with_smaller)
+{
+  int p[] = { 3, 4, 5 };
+  int sec[] = { 3, 5 };
+  int res[] = { 6,9,5 };
+  Monom A(3, 4, p);
+  Monom B(2, 3, sec);
+  Monom resMonom(3, 12, res);
+  bool flag = (A*B == resMonom ? 1 : 0);
+  EXPECT_EQ(flag, 1);
+}

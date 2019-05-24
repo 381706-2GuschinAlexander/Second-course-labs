@@ -10,7 +10,7 @@ Monom::Monom()
 Monom::Monom(int _n, double _con, int* _pow)
 {
   if (_n <= 0)
-    throw(1);
+    throw(__NEG_SIZE);
 
   con = _con;
   n = _n;
@@ -21,14 +21,14 @@ Monom::Monom(int _n, double _con, int* _pow)
     for (int i = 0; i < _n; i++)
     {
       if (_pow[i] < 0)
-        throw(1);
+        throw(__NEG_SIZE);
 
       pow[i] = _pow[i];
     }
   }
   catch(int e)
   {
-    throw(e);
+    throw(__UNEXPECTED);
   }
 }
 
@@ -72,7 +72,7 @@ int* Monom::GetPow() const
 void Monom::SetN(int _n)
 {
   if (_n < 0)
-    throw(1);
+    throw(__NEG_SIZE);
   else if (_n == 0)
   {
     if(pow != NULL)
@@ -96,7 +96,7 @@ void Monom::SetN(int _n)
         pow[i] = 0;
 
     n = _n;
-    delete tmp;
+    delete[] tmp;
   }
 }
 
@@ -112,14 +112,14 @@ void Monom::SetPow(int* _pow)
     for (int i = 0; i < n; i++)
     {
       if (_pow[i] < 0)
-        throw(1);
+        throw(__NEG_SIZE);
 
       pow[i] = _pow[i];
     }
   }
   catch (int e)
   {
-    throw(e);
+    throw(__UNEXPECTED);
   }
 }
 
@@ -140,12 +140,12 @@ Monom Monom::operator+(const Monom& A)
 {
   
   if (n != A.n)
-    throw(1);
+    throw(__DIFF_SIZE);
 
   Monom res(*this);
   for (int i = 0; i < n; i++)
     if (pow[i] != A.pow[i])
-      throw(1);
+      throw(__DIFF_VALUE);
 
   res.con += A.con;
   return res;
@@ -155,12 +155,12 @@ Monom Monom::operator-(const Monom& A)
 {
 
   if (n != A.n)
-    throw(1);
+    throw(__DIFF_SIZE);
 
   Monom res(*this);
   for (int i = 0; i < n; i++)
     if (pow[i] != A.pow[i])
-      throw(1);
+      throw(__DIFF_VALUE);
 
   res.con -= A.con;
   return res;
@@ -173,13 +173,19 @@ Monom Monom::operator*(const Monom& A)
 
   Monom res;
   if (flag == true)
+  {
     res = A;
+    res.con *= this->con;
+    for (int i = 0; i < minN; i++)
+      res.pow[i] += pow[i];
+  }
   else
+  {
     res = *this;
-
-  res.con *= A.con;
-  for (int i = 0; i < minN; i++)
-    res.pow[i] += A.pow[i];
+    res.con *= A.con;
+    for (int i = 0; i < minN; i++)
+      res.pow[i] += A.pow[i];
+  }
 
   return res;
 }
@@ -197,13 +203,18 @@ bool Monom::operator==(const Monom& A)
   return true;
 }
 
+bool Monom::operator!=(const Monom & A)
+{
+  return !(*this == A);
+}
+
 bool Monom::operator>(const Monom & A)
 {
   if (n != A.n)
-    throw(1);
+    throw(__DIFF_SIZE);
   for (int i = 0; i < A.n; i++)
     if (pow[i] != A.pow[i])
-      throw(1);
+      throw(__DIFF_VALUE);
 
   bool res;
   (con > A.con ? res = true : res = false);
@@ -213,10 +224,10 @@ bool Monom::operator>(const Monom & A)
 bool Monom::operator<(const Monom & A)
 {
   if (n != A.n)
-    throw(1);
+    throw(__DIFF_SIZE);
   for (int i = 0; i < A.n; i++)
     if (pow[i] != A.pow[i])
-      throw(1);
+      throw(__DIFF_VALUE);
 
   bool res;
   (con < A.con ? res = true : res = false);

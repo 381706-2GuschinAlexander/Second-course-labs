@@ -155,7 +155,7 @@ TMatrix<T> TMatrix<T>::operator/(const TMatrix<T>& B)
     det = det * B[i][i];
 
   if (det == 0)
-    throw(__INVALID_MATRIX);
+    throw(__INVALID_OBJECT);
 
   TMatrix<T> A(B);
   TMatrix<T> _A(A.l);
