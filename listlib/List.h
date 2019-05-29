@@ -1,6 +1,7 @@
 #pragma once
 #include "exception.h"
 #include "TLink.h"
+#include <iostream>
 
 template <class T>
 class List
@@ -16,7 +17,7 @@ public:
   bool IsEmpty() const;
   int GetLen() const;
 	TLink<T>* GetFirstLink();
-	List<T>& operator=(const  List<T>& list);
+	List<T>& operator=(List<T>& list);
   void InsFirst(const T& a);
   void InsCustom(const T& a, int pos);
   void InsLast(const T& a);
@@ -177,7 +178,7 @@ TLink<T>* List<T>::GetFirstLink()
 }
 
 template<class T>
-List<T>& List<T>::operator=(const List<T>& list)
+List<T>& List<T>::operator=(List<T>& list)
 {
 	if (firstLink != NULL) {
 		TLink<T>* tmpFirst = firstLink;
@@ -197,10 +198,12 @@ List<T>& List<T>::operator=(const List<T>& list)
 			delete tmpSecond;
 	}
 
-	TLink<T> tmp = list.firstLink;
+	TLink<T>* tmp = list.firstLink;
 	for (int i = 0; i < list.len; i++)
 	{
-		InsLast(tmp.GetValue());
+		InsLast(tmp->GetValue());
 		tmp = tmp->GetNextLink();
 	}
+
+	return *this;
 }

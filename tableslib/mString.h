@@ -16,6 +16,8 @@ public:
 	bool operator!=(const mString& _string);
 	bool operator<=(const mString& _string);
 	bool operator>=(const mString& _string);
+	bool operator<(const mString& _string);
+	bool operator>(const mString& _string);
   char* GetCStr() const;
   int GetCount() const;
 };

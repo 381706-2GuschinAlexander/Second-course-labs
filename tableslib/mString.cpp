@@ -139,6 +139,52 @@ bool mString::operator>=(const mString & _string)
 		return false;
 }
 
+bool mString::operator<(const mString & _string)
+{
+	unsigned long long sum1 = 0;
+	unsigned long long sum2 = 0;
+
+	for (int i = 0; i < count; i++)
+	{
+		sum1 *= 26;
+		sum1 += (str[i] - 'a' + 1);
+	}
+
+	for (int i = 0; i < _string.count; i++)
+	{
+		sum2 *= 26;
+		sum2 += (_string.str[i] - 'a' + 1);
+	}
+
+	if (sum1 < sum2)
+		return true;
+	else
+		return false;
+}
+
+bool mString::operator>(const mString & _string)
+{
+	unsigned long long sum1 = 0;
+	unsigned long long sum2 = 0;
+
+	for (int i = 0; i < count; i++)
+	{
+		sum1 *= 26;
+		sum1 += (str[i] - 'a' + 1);
+	}
+
+	for (int i = 0; i < _string.count; i++)
+	{
+		sum2 *= 26;
+		sum2 += (_string.str[i] - 'a' + 1);
+	}
+
+	if (sum1 > sum2)
+		return true;
+	else
+		return false;
+}
+
 char * mString::GetCStr() const
 {
   return str;
