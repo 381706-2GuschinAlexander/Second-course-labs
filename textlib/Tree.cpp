@@ -1,4 +1,6 @@
 #include "Tree.h"
+#include <iostream>
+#include <cstring>
 
 int TTree::tree_size = 100;
 int TTree::busy_tree_size = 0;
