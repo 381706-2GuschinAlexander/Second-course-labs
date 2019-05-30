@@ -60,7 +60,20 @@ TBTable<T>::TBTable(const TBTable & table)
 template<class T>
 TBTable<T>::~TBTable()
 {
-
+	TStackList<TBElem<T>*> points;
+	points.Put(node);
+	while (points.IsEmpty() != true)
+	{
+		TBElem<T>* tmp = points.Get();
+		if (tmp != NULL)
+		{
+			if (tmp->GetLeft() != NULL)
+				points.Put(tmp->GetLeft());
+			if(tmp->GetRight() != NULL)
+				points.Put(tmp->GetRight());
+			delete tmp;
+		}
+	}
 }
 
 template<class T>
@@ -114,6 +127,68 @@ void TBTable<T>::AddElem(TBElem<T>& elem)
 template<class T>
 void TBTable<T>::DeleteElem(const mString & key)
 {
+	TBElem<T>* tmp = node;
+	TBElem<T>* par;
+	while (tmp != NULL)
+	{
+		if (tmp->GetKey() == key)
+		{
+			if (tmp == node)
+				par = tmp;
+
+			break;
+		}
+		par = tmp;
+		if (tmp->GetKey() > key)
+			tmp = tmp->GetLeft();
+		else if (tmp->GetKey() < key)
+			tmp = tmp->GetRight();
+	}
+
+	if (par == NULL && tmp != NULL)
+		throw(1);
+
+	if(tmp != node)
+		if (par->GetLeft() == tmp)
+			par->SetLeft(NULL);
+		else
+			par->SetRight(NULL);
+
+	TStackList<TBElem<T>*> points;
+	TStackList<TBElem<T> > res;
+	TBElem<T>* st;
+	points.Put(tmp);
+	while (points.IsEmpty() != true)
+	{
+		st = points.Get();
+		if (st->GetLeft() != NULL)
+		{
+			points.Put(st->GetLeft());
+			res.Put(*(st->GetLeft()));
+		}
+		if (st->GetRight() != NULL)
+		{
+			points.Put(st->GetRight());
+			res.Put(*(st->GetRight()));
+		}
+		delete st;
+		
+	}
+
+	if (tmp == par)
+		node = NULL;
+
+	while (res.IsEmpty() != true)
+	{
+		TBElem<T> t = res.Get();
+		t.SetRight(NULL);
+		t.SetLeft(NULL);
+		if (node == NULL)
+			node = new TBElem<T>(t);
+		else
+			AddElem(t);
+	}
+	count--;
 }
 
 template<class T>
