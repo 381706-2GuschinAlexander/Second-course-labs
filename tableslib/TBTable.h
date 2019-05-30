@@ -16,6 +16,7 @@ public:
 	int GetCount();
 	TBElem<T>* GetNode() const;
 	void AddElem(TBElem<T>& elem);
+	void AddElem(const mString key, const T & value);
 	void DeleteElem(const mString& key);
 	T& Find(const mString& key);
 };
@@ -119,6 +120,43 @@ void TBTable<T>::AddElem(TBElem<T>& elem)
 		else if (elem.GetKey() < par->GetKey())
 		{
 			par->SetLeft(new TBElem<T>(elem));
+			par->GetLeft()->SetParent(par);
+		}
+	}
+}
+
+template<class T>
+void TBTable<T>::AddElem(const mString key, const T & value)
+{
+	if (count == 0)
+	{
+		node = new TBElem<T>(key, value);
+		count++;
+	}
+	else
+	{
+		TBElem<T>* fir = node;
+		TBElem<T>* par;
+		while (fir != NULL)
+		{
+			par = fir;
+			if (elem.GetKey() > fir->GetKey())
+				fir = fir->GetRight();
+			else if (elem.GetKey() < fir->GetKey())
+				fir = fir->GetLeft();
+			else
+				throw (1);
+		}
+		count++;
+		
+		if (elem.GetKey() > par->GetKey())
+		{
+			par->SetRight(new TBElem<T>(key, value));
+			par->GetRight()->SetParent(par);
+		}
+		else if (elem.GetKey() < par->GetKey())
+		{
+			par->SetLeft(new TBElem<T>(key, value));
 			par->GetLeft()->SetParent(par);
 		}
 	}
