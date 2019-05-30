@@ -9,7 +9,7 @@ TEST(Circle, can_create)
 TEST(Circle, can_create_with_attributes)
 {
 	Point A(12, 21);
-	ASSERT_NO_THROW(Circle A(A, 21));
+	ASSERT_NO_THROW(Circle B(A, 21));
 }
 
 TEST(Circle, can_set)
