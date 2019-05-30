@@ -126,7 +126,7 @@ void TBTable<T>::AddElem(TBElem<T>& elem)
 }
 
 template<class T>
-void TBTable<T>::AddElem(mString key, const T & value)
+void TBTable<T>::AddElem(const mString key, const T & value)
 {
 	if (count == 0)
 	{
@@ -140,21 +140,21 @@ void TBTable<T>::AddElem(mString key, const T & value)
 		while (fir != NULL)
 		{
 			par = fir;
-			if (key > fir->GetKey())
+			if (fir->GetKey() <  key)
 				fir = fir->GetRight();
-			else if (key < fir->GetKey())
+			else if (fir->GetKey() > key)
 				fir = fir->GetLeft();
 			else
 				throw (1);
 		}
 		count++;
 		
-		if (key > par->GetKey())
+		if ( par->GetKey() < key)
 		{
 			par->SetRight(new TBElem<T>(key, value));
 			par->GetRight()->SetParent(par);
 		}
-		else if (key < par->GetKey())
+		else if (par->GetKey() > key)
 		{
 			par->SetLeft(new TBElem<T>(key, value));
 			par->GetLeft()->SetParent(par);
