@@ -9,7 +9,7 @@ TEST(TBTableList, can_create)
 TEST(TBTableList, can_create_with_another_table)
 {
 	TBTable<int> A;
-	A.AddElem(TBElem<int>("a", 12));
+	A.AddElem("a", 12);
 	bool flag = 1;
 	TBTable<int> B(A);
 	if (A.Find("a") != B.Find("a"))
@@ -23,7 +23,7 @@ TEST(TBTableList, can_add_with_key_and_value)
 {
 
 	TBTable<int> A;
-	A.AddElem(TBElem<int>("bb", 3));
+	A.AddElem("bb", 3);
 	EXPECT_EQ(A.Find("bb") == 3, 1);
 }
 
