@@ -18,5 +18,6 @@ script:
   - ./polynomtest/polynomtest
   - ./tablestest/tablestest
   - ./plextest/plextest
+  - ./polishtest/polishtest
 notifications:
   email: false
