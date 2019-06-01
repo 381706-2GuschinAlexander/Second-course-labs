@@ -16,7 +16,7 @@ public:
   void Put(const T& A);
   T Get();
   bool IsEmpty();
-
+	void Clear();
 };
 
 template<class T>
@@ -89,4 +89,20 @@ template<class T>
 bool TStackList<T>::IsEmpty()
 {
   return len == 0;
+}
+
+template<class T>
+void TStackList<T>::Clear()
+{
+	if (currentElem != NULL) {
+		TLink<T>* tmp = currentElem;
+		for (int i = 0; i < len - 1; i++)
+		{
+			tmp = tmp->GetNextLink();
+			delete currentElem;
+			currentElem = tmp;
+		}
+		delete tmp;
+	}
+	len = 0;
 }

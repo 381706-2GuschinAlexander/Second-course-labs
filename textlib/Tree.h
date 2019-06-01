@@ -41,5 +41,6 @@ public:
 	void Initialization(int size);
 	void GarbageCollector();
 	static void ClearMemory(void);
+	TTree* Clone();
 };
 

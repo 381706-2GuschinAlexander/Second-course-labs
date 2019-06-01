@@ -35,6 +35,33 @@ TTree::TTree(const char * word)
 	}
 }
 
+TTree* TTree::Clone()
+{
+	TTree* resTree = new TTree(*this);
+	TStackList<TTree*> stack;
+	TStackList<TTree*> copy;
+	stack.Put(this);
+	copy.Put(resTree);
+	while (stack.IsEmpty() != true)
+	{
+		TTree* tmp1 = stack.Get();
+		TTree* tmp2 = copy.Get();
+		if (tmp1->nextLevel != NULL)
+		{
+			tmp2->nextLevel = new TTree(*(tmp1->nextLevel));
+			stack.Put(tmp1->nextLevel);
+			copy.Put(tmp2->nextLevel);
+		}
+		if (tmp1->sameLevel != NULL)
+		{
+			tmp2->sameLevel = new TTree(*(tmp1->sameLevel));
+			stack.Put(tmp1->sameLevel);
+			copy.Put(tmp2->sameLevel);
+		}
+	}
+	return resTree;
+}
+
 TTree::TTree(const char _letter)
 {
 	Initialization(tree_size);
