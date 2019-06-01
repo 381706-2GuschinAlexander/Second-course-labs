@@ -19,5 +19,6 @@ script:
   - ./tablestest/tablestest
   - ./plextest/plextest
   - ./polishtest/polishtest
+  - ./texttest/texttest
 notifications:
   email: false
