@@ -45,14 +45,6 @@ TEST(tree, throw_if_assign_trees_with_different_levels)
 	TTree::ClearMemory();
 }
 
-TEST(tree, can_assign_trees_correct)
-{
-	TTree tree1("hello");
-	TTree tree2("hi");
-	tree2 = tree1;
-	EXPECT_EQ(tree2.GetNextLevel()->GetLetter(), 'h');
-	EXPECT_EQ(tree2.GetNextLevel()->GetSameLevel()->GetLetter(), 'e');
-}
 
 TEST(tree, can_add_trees_without_throws)
 {
