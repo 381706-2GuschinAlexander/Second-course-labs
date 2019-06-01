@@ -45,13 +45,6 @@ TEST(tree, throw_if_assign_trees_with_different_levels)
 	TTree::ClearMemory();
 }
 
-TEST(tree, can_assign_trees_without_throws)
-{
-	TTree tree1("hello");
-	TTree tree2("hi");
-	ASSERT_NO_THROW(tree2 = tree1);
-}
-
 TEST(tree, can_assign_trees_correct)
 {
 	TTree tree1("hello");
