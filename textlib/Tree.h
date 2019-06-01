@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "StackList.h"
-
+#include <cstring>
 class TTree
 {
 protected:

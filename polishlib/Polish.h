@@ -2,6 +2,8 @@
 #include "exception.h"
 #include "StackList.h"
 #include <iostream>
+#include <cstring>
+#include <cstdlib>
 
 class Polish
 {
