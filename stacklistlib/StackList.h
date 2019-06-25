@@ -1,6 +1,7 @@
 #pragma once
 #include "exception.h"
 #include "TLink.h"
+#include <iostream>
 
 template <class T>
 class TStackList
@@ -9,13 +10,20 @@ protected:
   TLink<T>* currentElem;
   int len;
 public:
+	int GetLen();
   TStackList();
   ~TStackList();
   void Put(const T& A);
   T Get();
   bool IsEmpty();
-
+	void Clear();
 };
+
+template<class T>
+inline int TStackList<T>::GetLen()
+{
+	return len;
+}
 
 template<class T>
 TStackList<T>::TStackList()
@@ -81,4 +89,20 @@ template<class T>
 bool TStackList<T>::IsEmpty()
 {
   return len == 0;
+}
+
+template<class T>
+void TStackList<T>::Clear()
+{
+	if (currentElem != NULL) {
+		TLink<T>* tmp = currentElem;
+		for (int i = 0; i < len - 1; i++)
+		{
+			tmp = tmp->GetNextLink();
+			delete currentElem;
+			currentElem = tmp;
+		}
+		delete tmp;
+	}
+	len = 0;
 }

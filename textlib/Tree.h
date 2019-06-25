@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "StackList.h"
-
+#include <cstring>
 class TTree
 {
 protected:
@@ -12,7 +12,7 @@ protected:
 	static char* memory;
 	static TTree* start;
 	static TTree* end;
-	static TTree* cur_free;
+	static TTree* freeP;
 	static int tree_size;
 	static int busy_tree_size;
 public:
@@ -27,22 +27,20 @@ public:
 	TTree& operator+=(const char* word);
 	void* operator new (const size_t size);
 	void operator delete (void* tree);
-	void Output();
-	char* ToString();
-	void SetSameLevel(TTree* _same_level);
-	void SetNextLevel(TTree* _next_level);
+	void SetSameLevel(TTree* _sameLevel);
+	void SetNextLevel(TTree* _nextLevel);
 	void SetLetter(const char _letter);
 	void SetLevel(const int _level);
-	static void SetTreeSize(const int size);
+	static void SetTreeSize(const int treeSize);
 	TTree* GetSameLevel();
 	TTree* GetNextLevel();
 	char GetLetter();
 	int GetLevel();
-	static int GetTreeSize();//////tests!!!!!!
-	static int GetTreeBusySize();//////
-	TTree* Clone();
+	static int GetTreeSize();
+	static int GetTreeBusySize();
 	void Initialization(int size);
 	void GarbageCollector();
 	static void ClearMemory(void);
+	TTree* Clone();
 };
 

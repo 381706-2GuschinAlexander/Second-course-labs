@@ -1,5 +1,6 @@
 #pragma once
 #include "exception.h"
+#include <iostream>
 class mString
 {
 protected:
@@ -16,6 +17,8 @@ public:
 	bool operator!=(const mString& _string);
 	bool operator<=(const mString& _string);
 	bool operator>=(const mString& _string);
+	bool operator<(const mString& _string);
+	bool operator>(const mString& _string);
   char* GetCStr() const;
   int GetCount() const;
 };

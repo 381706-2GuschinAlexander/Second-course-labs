@@ -1,6 +1,7 @@
 #pragma once
 #include "exception.h"
 #include "TLink.h"
+#include <iostream>
 
 template <class T>
 class List
@@ -15,6 +16,8 @@ public:
   T GetValue(int pos) const;
   bool IsEmpty() const;
   int GetLen() const;
+	TLink<T>* GetFirstLink();
+	List<T>& operator=(List<T>& list);
   void InsFirst(const T& a);
   void InsCustom(const T& a, int pos);
   void InsLast(const T& a);
@@ -166,4 +169,41 @@ inline void List<T>::DelCustom(int pos)
     delete (tmp->GetNextLink());
     len--;
   }
+}
+
+template<class T>
+TLink<T>* List<T>::GetFirstLink()
+{
+	return firstLink;
+}
+
+template<class T>
+List<T>& List<T>::operator=(List<T>& list)
+{
+	if (firstLink != NULL) {
+		TLink<T>* tmpFirst = firstLink;
+		TLink<T>* tmpSecond;
+
+		if (len > 1)
+			tmpSecond = tmpFirst->GetNextLink();
+
+		for (int i = 0; i < len - 1; i++)
+		{
+			delete tmpFirst;
+			tmpFirst = tmpSecond;
+			tmpSecond = tmpFirst->GetNextLink();
+		}
+
+		if (len > 1)
+			delete tmpSecond;
+	}
+
+	TLink<T>* tmp = list.firstLink;
+	for (int i = 0; i < list.len; i++)
+	{
+		InsLast(tmp->GetValue());
+		tmp = tmp->GetNextLink();
+	}
+
+	return *this;
 }

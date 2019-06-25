@@ -1,6 +1,10 @@
 #pragma once
 #include "THElem.h"
 
+
+template <class T>
+class TSTable;
+
 template <class T>
 class TCTable
 {
@@ -20,11 +24,11 @@ public:
 	int GetCount();
 	friend std::ostream& operator<<(std::ostream& out, const TCTable<T>& table)
 	{
-		for (int i = 0; i < table.size; i++)
-			if (table.pElem[i] != exemp)
+		for (int i = 0; i < table.count; i++)
 				out << table.pElem[i] << std::endl;
 		return out;
 	}
+	friend class TSTable<T>;
 };
 
 template<class T>
